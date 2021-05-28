@@ -1,98 +1,114 @@
 import React, { Component } from "react";
 import {Chart} from '@antv/g2';
-import { PageHeader } from 'antd';
+import { PageHeader,Spin } from 'antd';
 
 class LineChart extends Component {
+  state = {
+    hasData : false
+  }
   componentDidMount() {
     fetch(
       "https://gw.alipayobjects.com/os/antvdemo/assets/data/blockchain.json"
     )
       .then((res) => res.json())
       .then((data) => {
-        const chart = new Chart({
-          container: "line-chart",
-          autoFit: true,
-          height: 500,
-          padding: [30, 20, 70, 30],
-        });
-
-        chart.data(data);
-        chart.scale({
-          nlp: {
-            min: 0,
-            max: 100,
-          },
-          blockchain: {
-            min: 0,
-            max: 100,
-          },
-        });
-
-        chart.axis("nlp", false);
-
-        chart.legend({
-          custom: true,
-          items: [
-            {
-              name: "blockchain",
-              value: "blockchain",
-              marker: {
-                symbol: "line",
-                style: { stroke: "#1890ff", lineWidth: 2 },
+        setTimeout(()=>{
+          this.setState({
+            hasData : true
+          })
+          const chart = new Chart({
+            container: "line-chart",
+            autoFit: true,
+            height: 500,
+            padding: [30, 20, 70, 30],
+          });
+  
+          chart.data(data);
+          chart.scale({
+            nlp: {
+              min: 0,
+              max: 100,
+            },
+            blockchain: {
+              min: 0,
+              max: 100,
+            },
+          });
+  
+          chart.axis("nlp", false);
+  
+          chart.legend({
+            custom: true,
+            items: [
+              {
+                name: "blockchain",
+                value: "blockchain",
+                marker: {
+                  symbol: "line",
+                  style: { stroke: "#1890ff", lineWidth: 2 },
+                },
+              },
+              {
+                name: "nlp",
+                value: "nlp",
+                marker: {
+                  symbol: "line",
+                  style: { stroke: "#2fc25b", lineWidth: 2 },
+                },
+              },
+            ],
+          });
+  
+          chart.line().position("date*blockchain").color("#1890ff");
+          chart.line().position("date*nlp").color("#2fc25b");
+  
+          chart.annotation().dataMarker({
+            top: true,
+            position: ["2016-02-28", 9],
+            text: {
+              content: "Blockchain 首超 NLP",
+              style: {
+                textAlign: "left",
               },
             },
-            {
-              name: "nlp",
-              value: "nlp",
-              marker: {
-                symbol: "line",
-                style: { stroke: "#2fc25b", lineWidth: 2 },
+            line: {
+              length: 30,
+            },
+          });
+          chart.annotation().dataMarker({
+            top: true,
+            position: ["2017-12-17", 100],
+            line: {
+              length: 30,
+            },
+            text: {
+              content:
+                "2017-12-17, 受比特币影响，\n blockchain搜索热度达到顶峰\n峰值：100",
+              style: {
+                textAlign: "right",
               },
             },
-          ],
-        });
-
-        chart.line().position("date*blockchain").color("#1890ff");
-        chart.line().position("date*nlp").color("#2fc25b");
-
-        chart.annotation().dataMarker({
-          top: true,
-          position: ["2016-02-28", 9],
-          text: {
-            content: "Blockchain 首超 NLP",
-            style: {
-              textAlign: "left",
-            },
-          },
-          line: {
-            length: 30,
-          },
-        });
-        chart.annotation().dataMarker({
-          top: true,
-          position: ["2017-12-17", 100],
-          line: {
-            length: 30,
-          },
-          text: {
-            content:
-              "2017-12-17, 受比特币影响，\n blockchain搜索热度达到顶峰\n峰值：100",
-            style: {
-              textAlign: "right",
-            },
-          },
-        });
-        chart.removeInteraction("legend-filter"); // 自定义图例，移除默认的分类图例筛选交互
-        chart.render();
+          });
+          chart.removeInteraction("legend-filter"); // 自定义图例，移除默认的分类图例筛选交互
+          chart.render();
+        },1000)
       });
   }
   render() {
-    return (
-      <div className="flex-around-col" style={{width: '100%', height : '100%'}}>
-        <PageHeader title="LineChart" style={{height: '20px'}}/>
-        <div id="line-chart" style={{width: '80%', height : '80%'}}></div>
-      </div>
-    )
+    if(this.state.hasData) {
+      return (
+        <div className="flex-around-col" style={{width: '100%', height : '100%'}}>
+          <PageHeader title="LineChart" style={{height: '20px'}}/>
+          <div id="line-chart" style={{width: '80%', height : '80%'}}></div>
+        </div>
+      )
+    }else {
+      return (
+        <div className="flex-around-col" style={{width: '100%', height : '100%'}}>
+          <Spin />
+        </div>
+      )
+    }
 
     ;
   }
