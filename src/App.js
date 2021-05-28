@@ -38,10 +38,10 @@ class App extends React.Component {
               theme="dark"
             >
               <Menu.Item key="statistic" icon={<LineChartOutlined />}>
-                <Link to="Statistic">Statistic</Link>
+                <Link to="/statistic">Statistic</Link>
               </Menu.Item>
               <Menu.Item key="map" icon={<BoxPlotOutlined />}>
-                <Link to="map">Map</Link>
+                <Link to="/map">Map</Link>
               </Menu.Item>
             </Menu>
           </Header>

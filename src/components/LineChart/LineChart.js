@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {Chart} from '@antv/g2';
+import { PageHeader } from 'antd';
 
 class LineChart extends Component {
   componentDidMount() {
@@ -86,7 +87,14 @@ class LineChart extends Component {
       });
   }
   render() {
-    return <div id="line-chart" style={{width: '80%', height : '80%'}}></div>;
+    return (
+      <div className="flex-around-col" style={{width: '100%', height : '100%'}}>
+        <PageHeader title="LineChart" style={{height: '20px'}}/>
+        <div id="line-chart" style={{width: '80%', height : '80%'}}></div>
+      </div>
+    )
+
+    ;
   }
 }
 
