@@ -1,22 +1,22 @@
 import React from "react";
 import { HashRouter as Router, Link, Route } from "react-router-dom";
-import { Menu } from "antd";
-import Mail from "./views/Mail/Mail";
+import { Menu, Layout } from "antd";
+import Statistic from "./views/Statistic/Statistic";
 import Map from "./views/Map/Map";
 import {
-  MailOutlined,
-  SettingOutlined,
-  SearchOutlined,
+  LineChartOutlined,
+  BoxPlotOutlined
 } from "@ant-design/icons";
 
 // less样式
 import "./App.less";
+import { Footer } from "antd/lib/layout/layout";
 
-const { SubMenu } = Menu;
+const { Header, Content, Sider } = Layout;
 
 class App extends React.Component {
   state = {
-    current: "mail",
+    current: "statistic",
   };
 
   handleClick = (e) => {
@@ -27,35 +27,33 @@ class App extends React.Component {
   render() {
     const { current } = this.state;
     return (
-      <div className="view">
-        <Router className="view">
-          <Menu
-            onClick={this.handleClick}
-            selectedKeys={[current]}
-            mode="horizontal"
-          >
-            <Menu.Item key="mail" icon={<MailOutlined />}>
-              <Link to="mail">邮箱</Link>
-            </Menu.Item>
-            <Menu.Item key="map" icon={<SearchOutlined />}>
-              <Link to="map">地图</Link>
-            </Menu.Item>
-            <SubMenu key="SubMenu" icon={<SettingOutlined />} title="二级菜单">
-              <Menu.ItemGroup title="Item 1">
-                <Menu.Item key="setting:1">Option 1</Menu.Item>
-                <Menu.Item key="setting:2">Option 2</Menu.Item>
-              </Menu.ItemGroup>
-              <Menu.ItemGroup title="Item 2">
-                <Menu.Item key="setting:3">Option 3</Menu.Item>
-                <Menu.Item key="setting:4">Option 4</Menu.Item>
-              </Menu.ItemGroup>
-            </SubMenu>
-          </Menu>
+      <Router>
+        <Layout className="layout">
+          <Header className="icdm-header flex-start">
+            <div className="icdm-logo flex-center">ICDM</div>
+            <Menu
+              onClick={this.handleClick}
+              selectedKeys={[current]}
+              mode="horizontal"
+              theme="dark"
+            >
+              <Menu.Item key="statistic" icon={<LineChartOutlined />}>
+                <Link to="Statistic">Statistic</Link>
+              </Menu.Item>
+              <Menu.Item key="map" icon={<BoxPlotOutlined />}>
+                <Link to="map">Map</Link>
+              </Menu.Item>
+            </Menu>
+          </Header>
 
-          <Route path="/mail" component={Mail}></Route>
-          <Route path="/map" component={Map}></Route>
-        </Router>
-      </div>
+          <Content className="view">
+            <Route path="/statistic" component={Statistic}></Route>
+            <Route path="/map" component={Map}></Route>
+          </Content>
+
+          <Footer className="icdm-footer flex-center">ICDM Created By QGStudio</Footer>
+        </Layout>
+      </Router>
     );
   }
 }

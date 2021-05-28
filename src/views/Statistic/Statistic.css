@@ -1,0 +1,12 @@
+.icdm-statistic {
+  height: 100%;
+  width: 100%;
+}
+.icdm-statistic .sider {
+  height: 100%;
+}
+.icdm-statistic .icdm-charts {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}

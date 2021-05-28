@@ -1,4 +1,14 @@
 .mapCmp {
   width: auto;
-  height: calc(100vh - 48px);
+  height: 100%;
+}
+.mapCmp .map-container {
+  width: 50%;
+  height: 100%;
+}
+.mapCmp .map-container #originMap {
+  margin: auto 0;
+}
+.mapCmp .origin-map {
+  border-right: 1px solid rgba(0, 0, 0, 0.06);
 }
