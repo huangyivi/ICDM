@@ -11,6 +11,14 @@ import {
   LineChartOutlined,
 } from "@ant-design/icons";
 
+
+
+
+// 数据
+
+import GeoLife from "../../assets/data/indicators/GeoLife";
+
+
 const { Sider, Content } = Layout;
 const { SubMenu } = Menu;
 
@@ -32,11 +40,14 @@ class Statistic extends Component {
                 title="LineChart"
               >
                 <Menu.Item key="line1">
-                  <Link to="/statistic/lineChart1">LineChart1</Link>
+                  <Link to="/statistic/Geolife">Geolife</Link>
                 </Menu.Item>
-                <Menu.Item key="line2">option2</Menu.Item>
-                <Menu.Item key="line3">option3</Menu.Item>
-                <Menu.Item key="line4">option4</Menu.Item>
+                <Menu.Item key="line2">
+                  <Link to="/statistic/Brinkhoff">Brinkhoff</Link>
+                </Menu.Item>
+                <Menu.Item key="line3">
+                  <Link to="/statistic/GuangzhouTaxi">GuangzhouTaxi</Link>
+                </Menu.Item>
               </SubMenu>
               <SubMenu key="bar" icon={<BarChartOutlined />} title="BarChart">
               <Menu.Item key="bar1">
@@ -57,7 +68,14 @@ class Statistic extends Component {
             </Menu>
           </Sider>
           <Content className="icdm-charts flex-center">
-            <Route path="/statistic/lineChart1" component={LineChart}></Route>
+            <Route path="/statistic/GeoLife" render={()=>{
+              
+              return (
+                <LineChart data={GeoLife}></LineChart>
+              )
+            }}></Route>
+            <Route path="/statistic/Brinkhoff" component={LineChart}></Route>
+            <Route path="/statistic/GuangzhouTaxi" component={LineChart}></Route>
             <Route path="/statistic/dotChart1" component={DotChart}></Route>
             <Route path="/statistic/barChart1" component={BarChart}></Route>
           </Content>

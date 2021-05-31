@@ -1,116 +1,116 @@
 import React, { Component } from "react";
-import {Chart} from '@antv/g2';
-import { PageHeader,Spin } from 'antd';
+import { Chart } from "@antv/g2";
+import { PageHeader, Spin } from "antd";
+import "./LineChart.less";
 
 class LineChart extends Component {
-  state = {
-    hasData : false
+  constructor(props) {
+    super(props);
   }
-  componentDidMount() {
-    fetch(
-      "https://gw.alipayobjects.com/os/antvdemo/assets/data/blockchain.json"
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setTimeout(()=>{
-          this.setState({
-            hasData : true
-          })
-          const chart = new Chart({
-            container: "line-chart",
-            autoFit: true,
-            height: 500,
-            padding: [30, 20, 70, 30],
-          });
-  
-          chart.data(data);
-          chart.scale({
-            nlp: {
-              min: 0,
-              max: 100,
-            },
-            blockchain: {
-              min: 0,
-              max: 100,
-            },
-          });
-  
-          chart.axis("nlp", false);
-  
-          chart.legend({
-            custom: true,
-            items: [
-              {
-                name: "blockchain",
-                value: "blockchain",
-                marker: {
-                  symbol: "line",
-                  style: { stroke: "#1890ff", lineWidth: 2 },
-                },
-              },
-              {
-                name: "nlp",
-                value: "nlp",
-                marker: {
-                  symbol: "line",
-                  style: { stroke: "#2fc25b", lineWidth: 2 },
-                },
-              },
-            ],
-          });
-  
-          chart.line().position("date*blockchain").color("#1890ff");
-          chart.line().position("date*nlp").color("#2fc25b");
-  
-          chart.annotation().dataMarker({
-            top: true,
-            position: ["2016-02-28", 9],
-            text: {
-              content: "Blockchain 首超 NLP",
-              style: {
-                textAlign: "left",
-              },
-            },
-            line: {
-              length: 30,
-            },
-          });
-          chart.annotation().dataMarker({
-            top: true,
-            position: ["2017-12-17", 100],
-            line: {
-              length: 30,
-            },
-            text: {
-              content:
-                "2017-12-17, 受比特币影响，\n blockchain搜索热度达到顶峰\n峰值：100",
-              style: {
-                textAlign: "right",
-              },
-            },
-          });
-          chart.removeInteraction("legend-filter"); // 自定义图例，移除默认的分类图例筛选交互
-          chart.render();
-        },1000)
+  state = {
+    hasData: false,
+  };
+  createLineChart(id,data,max) {
+    setTimeout(() => {
+      this.setState({
+        hasData: true,
       });
+      const chart = new Chart({
+        container: id,
+        autoFit: true,
+        height: 500,
+        padding: [30, 20, 70, 30],
+      });
+
+      chart.data(data);
+      chart.scale({
+        DPQG: {
+          min: 0,
+          max: max
+        },
+        DPSTAR: {
+          min: 0,
+          max: max
+        },
+      });
+
+      chart.axis("DPQG", false);
+
+      chart.legend({
+        custom: true,
+        items: [
+          {
+            name: "DPSTAR",
+            value: "DPSTAR",
+            marker: {
+              symbol: "line",
+              style: { stroke: "#1890ff", lineWidth: 2 },
+            },
+          },
+          {
+            name: "DPQG",
+            value: "DPQG",
+            marker: {
+              symbol: "line",
+              style: { stroke: "#2fc25b", lineWidth: 2 },
+            },
+          },
+        ],
+      });
+
+      chart.line().position("epsilon*DPSTAR").color("#1890ff");
+      chart.line().position("epsilon*DPQG").color("#2fc25b");
+      chart.removeInteraction("legend-filter"); // 自定义图例，移除默认的分类图例筛选交互
+      chart.render();
+    }, 1000);
+  }
+
+  componentDidMount() {
+    this.createLineChart("RE",this.props.data.RE,0.3);
+    this.createLineChart("FP",this.props.data.FP,0.4);
+    this.createLineChart("KT",this.props.data.KT,0.8);
+    this.createLineChart("TE",this.props.data.TE,0.2);
+    this.createLineChart("DE",this.props.data.DE,0.15);
   }
   render() {
-    if(this.state.hasData) {
+    if (this.state.hasData) {
       return (
-        <div className="flex-around-col" style={{width: '100%', height : '100%'}}>
-          <PageHeader title="LineChart" style={{height: '20px'}}/>
-          <div id="line-chart" style={{width: '80%', height : '80%'}}></div>
+        <div
+          className="flex-start-wrap chart-container"
+          style={{ width: "100%", height: "100%" }}
+        >
+          <div className="chart-items">
+            <PageHeader title="RE" style={{ height: "20px" }} />
+            <div id="RE" style={{ width: "80%", height: "80%" }}></div>
+          </div>
+          <div className="chart-items">
+            <PageHeader title="FP AvRe" style={{ height: "20px" }} />
+            <div id="FP" style={{ width: "80%", height: "80%" }}></div>
+          </div>
+          <div className="chart-items">
+            <PageHeader title="KT" style={{ height: "20px" }} />
+            <div id="KT" style={{ width: "80%", height: "80%" }}></div>
+          </div>
+          <div className="chart-items">
+            <PageHeader title="Trip Error" style={{ height: "20px" }} />
+            <div id="TE" style={{ width: "80%", height: "80%" }}></div>
+          </div>
+          <div className="chart-items">
+            <PageHeader title="Diameter Error" style={{ height: "20px" }} />
+            <div id="DE" style={{ width: "80%", height: "80%" }}></div>
+          </div>
         </div>
-      )
-    }else {
+      );
+    } else {
       return (
-        <div className="flex-around-col" style={{width: '100%', height : '100%'}}>
+        <div
+          className="flex-around-col"
+          style={{ width: "100%", height: "100%" }}
+        >
           <Spin />
         </div>
-      )
+      );
     }
-
-    ;
   }
 }
 

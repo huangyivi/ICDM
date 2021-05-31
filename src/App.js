@@ -12,7 +12,7 @@ import {
 import "./App.less";
 import { Footer } from "antd/lib/layout/layout";
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content } = Layout;
 
 class App extends React.Component {
   state = {
@@ -30,7 +30,7 @@ class App extends React.Component {
       <Router>
         <Layout className="layout">
           <Header className="icdm-header flex-start">
-            <div className="icdm-logo flex-center">ICDM</div>
+            <div className="icdm-logo flex-center">QG-DP</div>
             <Menu
               onClick={this.handleClick}
               selectedKeys={[current]}
@@ -51,7 +51,7 @@ class App extends React.Component {
             <Route path="/map" component={Map}></Route>
           </Content>
 
-          <Footer className="icdm-footer flex-center">ICDM Created By QGStudio</Footer>
+          <Footer className="icdm-footer flex-center">QG-DP Created By QGStudio</Footer>
         </Layout>
       </Router>
     );
