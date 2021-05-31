@@ -3,6 +3,7 @@ import { HashRouter as Router, Link, Route } from "react-router-dom";
 import { Menu, Layout } from "antd";
 import Statistic from "./views/Statistic/Statistic";
 import Map from "./views/Map/Map";
+import Home from './views/Home/Home';
 import {
   LineChartOutlined,
   BoxPlotOutlined
@@ -16,7 +17,7 @@ const { Header, Content } = Layout;
 
 class App extends React.Component {
   state = {
-    current: "statistic",
+    current: "home",
   };
 
   handleClick = (e) => {
@@ -37,8 +38,11 @@ class App extends React.Component {
               mode="horizontal"
               theme="dark"
             >
+              <Menu.Item key="home" icon={<LineChartOutlined />}>
+                <Link to="/">Home</Link>
+              </Menu.Item>
               <Menu.Item key="statistic" icon={<LineChartOutlined />}>
-                <Link to="/statistic">Statistic</Link>
+                <Link to="/statistic/Geolife">Statistic</Link>
               </Menu.Item>
               <Menu.Item key="map" icon={<BoxPlotOutlined />}>
                 <Link to="/map">Map</Link>
@@ -47,6 +51,7 @@ class App extends React.Component {
           </Header>
 
           <Content className="view">
+            <Route path="/" component={Home} exact></Route>
             <Route path="/statistic" component={Statistic}></Route>
             <Route path="/map" component={Map}></Route>
           </Content>
