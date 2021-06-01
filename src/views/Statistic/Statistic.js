@@ -7,7 +7,6 @@ import DotChart from "../../components/DotChart/DotChart";
 import BarChart from '../../components/BarChart/BarChart';
 import {
   BarChartOutlined,
-  DotChartOutlined,
   LineChartOutlined,
 } from "@ant-design/icons";
 
@@ -42,12 +41,12 @@ class Statistic extends Component {
                 <Menu.Item key="line1">
                   <Link to="/statistic/Geolife">Geolife</Link>
                 </Menu.Item>
-                <Menu.Item key="line2">
+                {/* <Menu.Item key="line2">
                   <Link to="/statistic/Brinkhoff">Brinkhoff</Link>
                 </Menu.Item>
                 <Menu.Item key="line3">
                   <Link to="/statistic/GuangzhouTaxi">GuangzhouTaxi</Link>
-                </Menu.Item>
+                </Menu.Item> */}
               </SubMenu>
               <SubMenu key="bar" icon={<BarChartOutlined />} title="BarChart">
               <Menu.Item key="bar1">
@@ -57,14 +56,14 @@ class Statistic extends Component {
                 <Menu.Item key="bar3">option3</Menu.Item>
                 <Menu.Item key="bar4">option4</Menu.Item>
               </SubMenu>
-              <SubMenu key="dot" icon={<DotChartOutlined />} title="DotChart">
+              {/* <SubMenu key="dot" icon={<DotChartOutlined />} title="DotChart">
                 <Menu.Item key="dot1">
                   <Link to="/statistic/dotChart1">DotChart1</Link>
                 </Menu.Item>
                 <Menu.Item key="dot2">option2</Menu.Item>
                 <Menu.Item key="dot3">option3</Menu.Item>
                 <Menu.Item key="dot4">option4</Menu.Item>
-              </SubMenu>
+              </SubMenu> */}
             </Menu>
           </Sider>
           <Content className="icdm-charts flex-center">

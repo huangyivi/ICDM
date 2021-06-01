@@ -2,110 +2,110 @@ const RE = [
     {
         "epsilon" : 0.1,
         "DPQG" : 0.093,
-        "DPSTAR" : 0.295
+        "DPSTAR" : 0.116
     },
     {
         "epsilon" : 0.5,
         "DPQG" : 0.054,
-        "DPSTAR" : 0.295
+        "DPSTAR" : 0.094
     },
     {
         "epsilon" : 1.0,
         "DPQG" : 0.025,
-        "DPSTAR" : 0.171
+        "DPSTAR" : 0.05
     },
     {
         "epsilon" : 2.0,
         "DPQG" : 0.013,
-        "DPSTAR" : 0.159
+        "DPSTAR" : 0.032
     },
 ]
 const FP = [
     {
         "epsilon" : 0.1,
         "DPQG" : 0.164,
-        "DPSTAR" : 0.340
+        "DPSTAR" : 0.125
     },
     {
         "epsilon" : 0.5,
         "DPQG" : 0.061,
-        "DPSTAR" : 0.329
+        "DPSTAR" : 0.079
     },
     {
         "epsilon" : 1.0,
         "DPQG" : 0.036,
-        "DPSTAR" : 0.322
+        "DPSTAR" : 0.078
     },
     {
         "epsilon" : 2.0,
         "DPQG" : 0.024,
-        "DPSTAR" : 0.329
+        "DPSTAR" : 0.099
     },
 ]
 const KT = [
     {
         "epsilon" : 0.1,
         "DPQG" : 0.262,
-        "DPSTAR" : 0.329
+        "DPSTAR" : 0.41
     },
     {
         "epsilon" : 0.5,
         "DPQG" : 0.394,
-        "DPSTAR" : 0.52
+        "DPSTAR" : 0.335
     },
     {
         "epsilon" : 1.0,
         "DPQG" : 0.544,
-        "DPSTAR" : 0.64
+        "DPSTAR" : 0.41
     },
     {
         "epsilon" : 2.0,
         "DPQG" : 0.618,
-        "DPSTAR" : 0.68
+        "DPSTAR" : 0.32
     },
 ]
 const TE = [
     {
         "epsilon" : 0.1,
         "DPQG" : 0.192,
-        "DPSTAR" : 0.071
+        "DPSTAR" : 0.281
     },
     {
         "epsilon" : 0.5,
         "DPQG" : 0.124,
-        "DPSTAR" : 0.054
+        "DPSTAR" : 0.13
     },
     {
         "epsilon" : 1.0,
         "DPQG" : 0.096,
-        "DPSTAR" : 0.034
+        "DPSTAR" : 0.0972
     },
     {
         "epsilon" : 2.0,
         "DPQG" : 0.0716,
-        "DPSTAR" : 0.017
+        "DPSTAR" : 0.08
     },
 ]
 const DE = [
     {
         "epsilon" : 0.1,
         "DPQG" : 0.073,
-        "DPSTAR" : 0.103
+        "DPSTAR" : 0.431
     },
     {
         "epsilon" : 0.5,
         "DPQG" : 0.068,
-        "DPSTAR" : 0.089
+        "DPSTAR" : 0.297
     },
     {
         "epsilon" : 1.0,
         "DPQG" : 0.072,
-        "DPSTAR" : 0.078
+        "DPSTAR" : 0.29
     },
     {
         "epsilon" : 2.0,
         "DPQG" : 0.061,
-        "DPSTAR" : 0.076
+        "DPSTAR" : 0.284
     },
 ]
 

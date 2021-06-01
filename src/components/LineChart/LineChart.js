@@ -66,11 +66,11 @@ class LineChart extends Component {
   }
 
   componentDidMount() {
-    this.createLineChart("RE",this.props.data.RE,0.3);
-    this.createLineChart("FP",this.props.data.FP,0.4);
-    this.createLineChart("KT",this.props.data.KT,0.8);
+    this.createLineChart("RE",this.props.data.RE,0.12);
+    this.createLineChart("FP",this.props.data.FP,0.2);
+    this.createLineChart("KT",this.props.data.KT,0.7);
     this.createLineChart("TE",this.props.data.TE,0.2);
-    this.createLineChart("DE",this.props.data.DE,0.15);
+    this.createLineChart("DE",this.props.data.DE,0.5);
   }
   render() {
     if (this.state.hasData) {

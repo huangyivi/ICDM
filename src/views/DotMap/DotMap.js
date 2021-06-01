@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import "./Map.less";
-import { Divider, Spin, Button,notification } from "antd";
+import "./DotMap.less";
+import { Divider, Spin, Button } from "antd";
 const AMap = window.AMap;
 
 class Map extends Component {
@@ -16,12 +16,11 @@ class Map extends Component {
       dp3_map: null,
       dp4_map: null,
     };
-    this.switchPath = this.switchPath.bind(this);
-    this.strokePath = this.strokePath.bind(this);
-    this.createPath = this.createPath.bind(this);
-    this.switchPath = this.switchPath.bind(this);
+    this.createDot = this.createDot.bind(this);
+    this.strokeDot = this.strokeDot.bind(this);
     this.getPath = this.getPath.bind(this);
     this.clearMap = this.clearMap.bind(this);
+    this.switchPath = this.switchPath.bind(this);
   }
   // 生成地图
   createMap(id) {
@@ -42,44 +41,6 @@ class Map extends Component {
     this.state.dp4_map.clearMap();
   }
 
-  // 生成路径图层
-  createPath(map, path, color) {
-    var polyline = new AMap.Polyline({
-      path: path,
-      strokeColor: color,
-      strokeOpacity: 1,
-      strokeWeight: 1,
-      lineJoin: "round",
-      lineCap: "round",
-      zIndex: 50,
-    });
-    polyline.setMap(map);
-  }
-
-  // 渲染路径
-  strokePath(data) {
-    const { origin, dp1, dp2, dp3, dp4 } = data;
-
-    let colors = [
-      "red",
-      "orange",
-      "gold",
-      "green",
-      "blue",
-      "purple",
-      "Brown",
-      "DeepPink",
-      "LightCoral",
-      "MediumTurquoise",
-    ];
-    let color = colors[Math.floor(Math.random() * 10)];
-    this.createPath(this.state.map0, origin, "blue");
-    this.createPath(this.state.dp1_map, dp1, "blue");
-    this.createPath(this.state.dp2_map, dp2, "blue");
-    this.createPath(this.state.dp3_map, dp3, "blue");
-    this.createPath(this.state.dp4_map, dp4, "blue");
-  }
-
   // 切换路径
   switchPath() {
     this.setState({
@@ -90,7 +51,7 @@ class Map extends Component {
 
   componentDidMount() {
     // 生成地图操作
-    let p = new Promise((res, rej) => {
+    let p = new Promise((res,rej)=>{
       this.setState({
         map0: this.createMap("originMap"),
         dp1_map: this.createMap("dp1"),
@@ -98,47 +59,77 @@ class Map extends Component {
         dp3_map: this.createMap("dp3"),
         dp4_map: this.createMap("dp4"),
       });
-      res("ok");
-    });
-    p.then((data) => {
+      res('ok');
+    })
+    p.then((data)=>{
       this.getPath();
-    });
+    })
   }
 
   // 从服务器中获取路径
   getPath() {
     this.clearMap();
     // 长度代表渲染总数
-    let promise = new Promise((res, rej) => {
+    let promise = new Promise((res,rej)=>{
       for (let i = 0; i < 50; i++) {
         axios.get("http://10.21.56.118:8080/data").then((res) => {
           if (res.status === 200) {
             let data = res.data;
-            this.strokePath(data);
-          }else {
-            notification['error']({
-              message: 'Server Error',
-              description: 'Please check your network,and reload this page'
-            })
+              // 渲染散点图
+              this.strokeDot(data);
           }
-        })
-        
-        if (i === 49) {
+        });
+        if(i === 49) {
           res();
         }
       }
-    });
+    })
 
-    promise.then((data) => {
+    promise.then(data=>{
       this.setState({
-        hasData: true,
-      });
-      setTimeout(()=>{
-        this.setToFit();
-      },2000)
-    });
+        hasData: true
+      })
+      setTimeout(() => {
+        this.setToFit()
+      }, 2000);
+    })
   }
 
+  // 创建散点图层
+  createDot(map, center) {
+    let circleMarker = new AMap.CircleMarker({
+      center: center,
+      radius: 1, //3D视图下，CircleMarker半径不要超过64px
+      fillColor: "blue",
+      fillOpacity: 0.5,
+      zIndex: 10
+    });
+    circleMarker.setMap(map);
+  }
+
+  // 渲染散点图层
+  strokeDot(data) {
+
+    let { origin, dp1, dp2, dp3, dp4 } = data;
+
+    const { map0, dp1_map, dp2_map, dp3_map, dp4_map } = this.state;
+
+    for (let i = 0; i < origin.length; i++) {
+      this.createDot(map0, origin[i]);
+    }
+    for (let i = 0; i < dp1.length; i++) {
+      this.createDot(dp1_map, dp1[i]);
+    }
+    for (let i = 0; i < dp2.length; i++) {
+      this.createDot(dp2_map, dp2[i]);
+    }
+    for (let i = 0; i < dp3.length; i++) {
+      this.createDot(dp3_map, dp3[i]);
+    }
+    for (let i = 0; i < dp4.length; i++) {
+      this.createDot(dp4_map, dp4[i]);
+    }
+  }
   // 设置合适的视角
   setToFit() {
     const { map0, dp1_map, dp2_map, dp3_map, dp4_map } = this.state;
