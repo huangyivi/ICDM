@@ -3,8 +3,9 @@ import { HashRouter as Router, Link, Route } from "react-router-dom";
 import { Menu, Layout } from "antd";
 import Statistic from "./views/Statistic/Statistic";
 import Map from "./views/Map/Map";
-import DotMap from './views/DotMap/DotMap';
+import DotMap from "./views/DotMap/DotMap";
 import Home from "./views/Home/Home";
+import MapDetail from "./views/MapDetail/MapDetail";
 import {
   LineChartOutlined,
   BoxPlotOutlined,
@@ -19,6 +20,12 @@ const { Header, Content } = Layout;
 const { SubMenu } = Menu;
 
 class App extends React.Component {
+  constructor(props){
+    super(props);
+    window.dataset = "GeoLife";
+    window.size = 50;
+    window.indicator = 'dp1';
+  }
   state = {
     current: "home",
   };
@@ -51,7 +58,7 @@ class App extends React.Component {
       <Router>
         <Layout className="layout">
           <Header className="icdm-header flex-start">
-            <div className="icdm-logo flex-center">QG-DP</div>
+            <div className="icdm-logo flex-center">DP-STP</div>
             <Menu
               onClick={this.handleClick}
               selectedKeys={[current]}
@@ -64,26 +71,24 @@ class App extends React.Component {
               <Menu.Item key="statistic/Geolife" icon={<LineChartOutlined />}>
                 <Link to="/statistic/Geolife">Statistic</Link>
               </Menu.Item>
-              <SubMenu key="map" title="Map" icon={<BoxPlotOutlined />}>
-                <Menu.Item key="lineMap" >
-                  <Link to="/map/lineMap">LineMap</Link>
-                </Menu.Item>
-                <Menu.Item key="dotMap">
-                  <Link to="/map/dotMap">DotMap</Link>
-                </Menu.Item>
-              </SubMenu>
+              <Menu.Item key="lineMap" icon={<BoxPlotOutlined />}>
+                <Link to="/lineMap">LineMap</Link>
+              </Menu.Item>
+              <Menu.Item key="dotMap" icon={<BoxPlotOutlined />}>
+                <Link to="/dotMap">DotMap</Link>
+              </Menu.Item>
             </Menu>
           </Header>
 
           <Content className="view">
             <Route path="/" component={Home} exact></Route>
             <Route path="/statistic" component={Statistic}></Route>
-            <Route path="/map/lineMap" component={Map}></Route>
-            <Route path="/map/dotMap" component={DotMap}></Route>
+            <Route path="/lineMap" component={MapDetail}></Route>
+            <Route path="/dotMap" component={DotMap}></Route>
           </Content>
 
           <Footer className="icdm-footer flex-center">
-            QG-DP Created By QGStudio
+            DP-STP Created By QGStudio
           </Footer>
         </Layout>
       </Router>

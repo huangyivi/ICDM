@@ -29,9 +29,33 @@
     justify-content: space-around;
     align-items: center;
 }
+.flex-around {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
 .flex-start-col {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    align-items: center;
+}
+
+.flex-start-around-col{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.flex-end {
+    display: flex;
+    justify-content: flex-end;
     align-items: center;
 }

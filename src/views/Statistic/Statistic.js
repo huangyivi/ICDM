@@ -70,10 +70,10 @@ class Statistic extends Component {
             <Route path="/statistic/GeoLife" render={()=>{
               
               return (
-                <LineChart data={GeoLife}></LineChart>
+                <LineChart data={GeoLife} title="GeoLife"></LineChart>
               )
             }}></Route>
-            <Route path="/statistic/Brinkhoff" component={LineChart}></Route>
+            <Route path="/statistic/Brinkhoff" ></Route>
             <Route path="/statistic/GuangzhouTaxi" component={LineChart}></Route>
             <Route path="/statistic/dotChart1" component={DotChart}></Route>
             <Route path="/statistic/barChart1" component={BarChart}></Route>
