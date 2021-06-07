@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 import "./DotMap.less";
@@ -9,6 +10,7 @@ class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      model : 'DP-STP',
       dataset: window.dataset,
       size: window.size,
       hasData: false,
@@ -22,6 +24,7 @@ class Map extends Component {
       dp2: [],
       dp3: [],
       dp4: [],
+      mass: [],
     };
     this.createDot = this.createDot.bind(this);
     this.strokeDot = this.strokeDot.bind(this);
@@ -34,7 +37,7 @@ class Map extends Component {
   // 生成地图
   createMap(id) {
     return new AMap.Map(id, {
-      zoom: 11,
+      zoom: 8,
       center: [116.72577489987015, 40.20045760054238],
       // dragEnable: false,
       showLabel: false,
@@ -43,11 +46,17 @@ class Map extends Component {
   }
   // 清除地图
   clearMap() {
-    this.state.map0.clearMap();
-    this.state.dp1_map.clearMap();
-    this.state.dp2_map.clearMap();
-    this.state.dp3_map.clearMap();
-    this.state.dp4_map.clearMap();
+    // this.state.map0.clearMap();
+    // this.state.dp1_map.clearMap();
+    // this.state.dp2_map.clearMap();
+    // this.state.dp3_map.clearMap();
+    // this.state.dp4_map.clearMap();
+    for (let mass of this.state.mass) {
+      mass.clear();
+    }
+    this.setState({
+      mass: [],
+    });
   }
 
   // 切换路径
@@ -81,13 +90,15 @@ class Map extends Component {
     // 长度代表渲染总数
     let that = this;
     let promise = new Promise((res, rej) => {
-        let resolve = res;
-        axios.get("http://10.21.56.118:80/data/" + that.state.size).then((res) => {
+      let resolve = res;
+      axios
+        .get("http://10.21.56.118:80/data/" + that.state.size)
+        .then((res) => {
           if (res.status === 200) {
             let data = res.data;
             // 渲染散点图
             this.strokeDot(data);
-            window.mapData=data;
+            window.mapData = data;
             resolve();
           }
         });
@@ -114,7 +125,8 @@ class Map extends Component {
     // });
     // circleMarker.setMap(map);
     var styleObject = {
-      url: "https://qg-recruit-video.oss-cn-guangzhou.aliyuncs.com/icon/point.png", // 图标地址
+      url:
+        "https://qg-recruit-video.oss-cn-guangzhou.aliyuncs.com/icon/point.png", // 图标地址
       size: new AMap.Size(11, 11), // 图标大小
       anchor: new AMap.Pixel(5, 5), // 图标显示位置偏移量，基准点为图标左上角
     };
@@ -125,6 +137,11 @@ class Map extends Component {
     });
     mass.setData(data);
     mass.setMap(map);
+    let mass_arr = this.state.mass;
+    mass_arr.push(mass);
+    this.setState({
+      mass: mass_arr,
+    });
   }
 
   // 渲染散点图层
@@ -143,14 +160,14 @@ class Map extends Component {
       dp1: temp1,
       dp2: temp2,
       dp3: temp3,
-      dp4: temp4
+      dp4: temp4,
     });
 
-    this.createDot(map0,this.state.origin);
-    this.createDot(dp1_map,this.state.dp1);
-    this.createDot(dp2_map,this.state.dp2);
-    this.createDot(dp3_map,this.state.dp3);
-    this.createDot(dp4_map,this.state.dp4);
+    this.createDot(map0, this.state.origin);
+    this.createDot(dp1_map, this.state.dp1);
+    this.createDot(dp2_map, this.state.dp2);
+    this.createDot(dp3_map, this.state.dp3);
+    this.createDot(dp4_map, this.state.dp4);
   }
   // 设置合适的视角
   setToFit() {
@@ -168,10 +185,10 @@ class Map extends Component {
     dp4_map.setZoom(map0.getZoom());
   }
 
-  handleChange(e){
+  handleChange(e) {
     this.setState({
-      [e.target.id] : e.target.value
-    })
+      [e.target.id]: e.target.value,
+    });
 
     window[e.target.id] = e.target.value;
   }
@@ -196,16 +213,35 @@ class Map extends Component {
             style={{ width: "80%", height: "50%" }}
           >
             <div className="flex-between" style={{ width: "80%" }}>
+              <div>Select Model:</div>
+              <select
+                value={this.state.model}
+                id="model"
+                onChange={this.handleChange}
+              >
+                <option value="DP-STP">DP-STP</option>
+                <option value="DP-STAR">DP-STAR</option>
+              </select>
+            </div>
+            <div className="flex-between" style={{ width: "80%" }}>
               <div>Select Dataset:</div>
-              <select value={window.dataset} id="dataset" onChange={this.handleChange}>
+              <select
+                value={window.dataset}
+                id="dataset"
+                onChange={this.handleChange}
+              >
                 <option value="GeoLife">GeoLife</option>
-                <option value="Brinkoff">Brinkoff</option>
+                <option value="Brinkhoff">Brinkhoff</option>
                 <option value="GZTaxi">GuangzhouTaxi</option>
               </select>
             </div>
             <div className="flex-between" style={{ width: "80%" }}>
               <div>Select Data Size:</div>
-              <select value={this.state.size} onChange={this.handleChange} id="size">
+              <select
+                value={this.state.size}
+                onChange={this.handleChange}
+                id="size"
+              >
                 <option value="50">50</option>
                 <option value="100">100</option>
                 <option value="300">300</option>
@@ -216,23 +252,29 @@ class Map extends Component {
               </select>
             </div>
             <div className="flex-between" style={{ width: "80%" }}>
-              <Button type="primary" size="large" onClick={this.setToFit}>Set To Fitview</Button>
-              <Button type="primary" size="large" onClick={this.getPath}>Submit</Button>
+              <Button type="primary" size="large" onClick={this.setToFit}>
+                Set To Fitview
+              </Button>
+              <Button type="primary" size="large" onClick={this.getPath}>
+                Submit
+              </Button>
             </div>
           </div>
           <Divider orientation="center">Origin</Divider>
           <div id="originMap" style={{ width: "400px", height: "50%" }}></div>
         </div>
         <div className="map-container flex-start-col analyzed-map">
-          <Divider orientation="center">DP-STP(0.1)</Divider>
+          <Divider orientation="center">{this.state.model}(0.1)</Divider>
           <div id="dp1" style={{ width: "400px", height: "50%" }}></div>
-          <Divider orientation="center">DP-STP(1.0)</Divider>
+          {/* <Link to="/mapDetail"> */}
+            <Divider orientation="center">{this.state.model}(1.0)</Divider>
+          {/* </Link> */}
           <div id="dp3" style={{ width: "400px", height: "50%" }}></div>
         </div>
         <div className="map-container flex-start-col analyzed-map">
-          <Divider orientation="center">DP-STP(0.5)</Divider>
+          <Divider orientation="center">{this.state.model}(0.5)</Divider>
           <div id="dp2" style={{ width: "400px", height: "50%" }}></div>
-          <Divider orientation="center">DP-STP(2.0)</Divider>
+          <Divider orientation="center">{this.state.model}(2.0)</Divider>
           <div id="dp4" style={{ width: "400px", height: "50%" }}></div>
         </div>
         {renderLoading()}

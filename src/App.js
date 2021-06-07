@@ -5,7 +5,7 @@ import Statistic from "./views/Statistic/Statistic";
 import Map from "./views/Map/Map";
 import DotMap from "./views/DotMap/DotMap";
 import Home from "./views/Home/Home";
-import MapDetail from "./views/MapDetail/MapDetail";
+import Contrast from "./views/Contrast/Contrast";
 import {
   LineChartOutlined,
   BoxPlotOutlined,
@@ -71,11 +71,11 @@ class App extends React.Component {
               <Menu.Item key="statistic/Geolife" icon={<LineChartOutlined />}>
                 <Link to="/statistic/Geolife">Statistic</Link>
               </Menu.Item>
-              <Menu.Item key="lineMap" icon={<BoxPlotOutlined />}>
-                <Link to="/lineMap">LineMap</Link>
-              </Menu.Item>
               <Menu.Item key="dotMap" icon={<BoxPlotOutlined />}>
                 <Link to="/dotMap">DotMap</Link>
+              </Menu.Item>
+              <Menu.Item key="contrast" icon={<BoxPlotOutlined />}>
+                <Link to="/contrast">Contrast</Link>
               </Menu.Item>
             </Menu>
           </Header>
@@ -83,8 +83,8 @@ class App extends React.Component {
           <Content className="view">
             <Route path="/" component={Home} exact></Route>
             <Route path="/statistic" component={Statistic}></Route>
-            <Route path="/lineMap" component={MapDetail}></Route>
             <Route path="/dotMap" component={DotMap}></Route>
+            <Route path="/contrast" component={Contrast}></Route>
           </Content>
 
           <Footer className="icdm-footer flex-center">
