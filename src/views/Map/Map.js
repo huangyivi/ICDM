@@ -60,19 +60,19 @@ class Map extends Component {
   strokePath(data) {
     const { origin, dp1, dp2, dp3, dp4 } = data;
 
-    let colors = [
-      "red",
-      "orange",
-      "gold",
-      "green",
-      "blue",
-      "purple",
-      "Brown",
-      "DeepPink",
-      "LightCoral",
-      "MediumTurquoise",
-    ];
-    let color = colors[Math.floor(Math.random() * 10)];
+    // let colors = [
+    //   "red",
+    //   "orange",
+    //   "gold",
+    //   "green",
+    //   "blue",
+    //   "purple",
+    //   "Brown",
+    //   "DeepPink",
+    //   "LightCoral",
+    //   "MediumTurquoise",
+    // ];
+    // let color = colors[Math.floor(Math.random() * 10)];
     this.createPath(this.state.map0, origin, "blue");
     this.createPath(this.state.dp1_map, dp1, "blue");
     this.createPath(this.state.dp2_map, dp2, "blue");

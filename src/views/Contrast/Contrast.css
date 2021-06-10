@@ -6,11 +6,13 @@
   background-color: #fff;
 }
 .container .option .option-item {
-  font-size: 16px;
+  margin-top: 10px;
+  font-size: 1.2rem;
   width: 80%;
   height: 100px;
 }
 .container .detail-map {
   width: 100%;
   height: 80%;
+  border: 1px solid #000;
 }

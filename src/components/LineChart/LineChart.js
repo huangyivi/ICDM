@@ -5,9 +5,6 @@ import "./LineChart.less";
 
 
 class LineChart extends Component {
-  constructor(props) {
-    super(props);
-  }
   state = {
     hasData: false,
   };
@@ -41,7 +38,7 @@ class LineChart extends Component {
         custom: true,
         items: [
           {
-            name: "DPSTAR",
+            name: "DP-STAR",
             value: "DPSTAR",
             marker: {
               symbol: "line",
@@ -49,7 +46,7 @@ class LineChart extends Component {
             },
           },
           {
-            name: "DPSTP",
+            name: "DP-STP",
             value: "DPSTP",
             marker: {
               symbol: "line",
@@ -122,7 +119,7 @@ class LineChart extends Component {
     // 渲染图标
     this.createLineChart("RE", this.props.data.RE,this.mins[0]-0.1,this.maxs[0]+0.1);
     this.createLineChart("FP", this.props.data.FP,this.mins[1]-0.1,this.maxs[1]+0.1);
-    this.createLineChart("KT", this.props.data.KT,this.mins[2]-0.1,this.maxs[2]+0.1);
+    this.createLineChart("KT", this.props.data.KT,this.mins[2]-0.1,this.maxs[2]+0.15);
     this.createLineChart("TE", this.props.data.TE,this.mins[3]-0.1,this.maxs[3]+0.1);
     this.createLineChart("DE", this.props.data.DE,this.mins[4]-0.1,this.maxs[4]+0.1);
   }
@@ -140,7 +137,7 @@ class LineChart extends Component {
               <div id="RE" style={{ width: "80%", height: "80%" }}></div>
             </div>
             <div className="chart-items">
-              <PageHeader title="FP AvRe" style={{ height: "20px" }} />
+              <PageHeader title="FPS" style={{ height: "20px" }} />
               <div id="FP" style={{ width: "80%", height: "80%" }}></div>
             </div>
             <div className="chart-items">
@@ -148,12 +145,12 @@ class LineChart extends Component {
               <div id="KT" style={{ width: "80%", height: "80%" }}></div>
             </div>
             <div className="chart-items">
-              <PageHeader title="Trip Error" style={{ height: "20px" }} />
-              <div id="TE" style={{ width: "80%", height: "80%" }}></div>
+              <PageHeader title="DE" style={{ height: "20px" }} />
+              <div id="DE" style={{ width: "80%", height: "80%" }}></div>
             </div>
             <div className="chart-items">
-              <PageHeader title="Diameter Error" style={{ height: "20px" }} />
-              <div id="DE" style={{ width: "80%", height: "80%" }}></div>
+              <PageHeader title="TE" style={{ height: "20px" }} />
+              <div id="TE" style={{ width: "80%", height: "80%" }}></div>
             </div>
           </div>
         </div>

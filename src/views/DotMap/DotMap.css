@@ -4,12 +4,17 @@
 }
 .mapCmp .map-container {
   width: 33%;
-  height: 100%;
+  height: 50%;
   border-right: 1px solid rgba(0, 0, 0, 0.06);
 }
 .mapCmp .map-container .option {
   background-color: #fff;
-  font-size: 1.5em;
+  font-size: 1.2em;
+}
+.mapCmp .map-container .maps {
+  border: 1px solid black;
+  width: 400px;
+  height: 80%;
 }
 .mapCmp .qg-map-container {
   width: 50%;

@@ -1,19 +1,34 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 
 import "./DotMap.less";
-import { Divider, Spin, Button, Menu, Dropdown } from "antd";
+import { Divider, Button, message,Popover } from "antd";
 const AMap = window.AMap;
+
+const options = [
+  {
+    center: [116.4065705680847, 39.93982986393404],
+    zoom: 8,
+  },
+  {
+    center: [113.48181156322363, 23.009539612697615],
+    zoom: 8,
+  },
+  {
+    center: [15.822676, 31.539922],
+    zoom: 3,
+  },
+];
 
 class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      model : 'DP-STP',
-      dataset: window.dataset,
-      size: window.size,
-      hasData: false,
+      // model: 0,
+      model: "DPSTP",
+      dataset: "GeoLife",
+      size: "50",
+      hasData: true,
       map0: null,
       dp1_map: null,
       dp2_map: null,
@@ -25,32 +40,35 @@ class Map extends Component {
       dp3: [],
       dp4: [],
       mass: [],
+      isRequesting: false,
     };
     this.createDot = this.createDot.bind(this);
     this.strokeDot = this.strokeDot.bind(this);
     this.getPath = this.getPath.bind(this);
     this.clearMap = this.clearMap.bind(this);
-    // this.switchPath = this.switchPath.bind(this);
     this.setToFit = this.setToFit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
   // 生成地图
   createMap(id) {
+    if (id === "originMap") {
+      return new AMap.Map(id, {
+        zoom: 8,
+        center: [116.72577489987015, 40.20045760054238],
+        showLabel: false,
+        mapStyle: "amap://styles/a63016a6478fb6d0589f71aa183b8e69",
+      });
+    }
     return new AMap.Map(id, {
       zoom: 8,
       center: [116.72577489987015, 40.20045760054238],
-      // dragEnable: false,
+      dragEnable: false,
       showLabel: false,
       mapStyle: "amap://styles/a63016a6478fb6d0589f71aa183b8e69",
     });
   }
   // 清除地图
   clearMap() {
-    // this.state.map0.clearMap();
-    // this.state.dp1_map.clearMap();
-    // this.state.dp2_map.clearMap();
-    // this.state.dp3_map.clearMap();
-    // this.state.dp4_map.clearMap();
     for (let mass of this.state.mass) {
       mass.clear();
     }
@@ -58,14 +76,6 @@ class Map extends Component {
       mass: [],
     });
   }
-
-  // 切换路径
-  // switchPath() {
-  //   this.setState({
-  //     hasData: false,
-  //   });
-  //   this.getPath();
-  // }
 
   componentDidMount() {
     // 生成地图操作
@@ -87,53 +97,104 @@ class Map extends Component {
   // 从服务器中获取路径
   getPath() {
     this.clearMap();
-    // 长度代表渲染总数
-    let that = this;
-    let promise = new Promise((res, rej) => {
-      let resolve = res;
+    this.setViewForData();
+    if (this.state.isRequesting) {
+      message.warning("A request is running ! Please wait a moment");
+    } else {
+      //设置节流
+      this.setState({
+        isRequesting: true,
+      });
+      const loading1 = message.loading("Loading...", 0);
+      const loading2 = message.loading(
+        "Due to server restrictions, data requests may take some time",
+        0
+      );
+      let url = `https://qg-recruit-video.oss-accelerate.aliyuncs.com/${this.state.model}/${this.state.dataset}/${this.state.size}.js`;
       axios
-        .get("http://10.21.56.118:80/data/" + that.state.size)
+        .get(url)
         .then((res) => {
+          this.setState({
+            isRequesting: false,
+          });
+          setTimeout(loading1, 1000);
+          setTimeout(loading2, 1000);
           if (res.status === 200) {
             let data = res.data;
             // 渲染散点图
             this.strokeDot(data);
             window.mapData = data;
-            resolve();
+            message.success({
+              content: "Data Loaded",
+            });
+          } else {
+            message.error({
+              content: "Network Error!",
+            });
           }
+        })
+        .catch((err) => {
+          this.setState({
+            isRequesting: false,
+          });
+          setTimeout(loading1, 1000);
+          setTimeout(loading2, 1000);
+          message.error({
+            content: "Network Error!",
+          });
         });
-    });
+    }
 
-    promise.then((data) => {
-      this.setState({
-        hasData: true,
-      });
-      // setTimeout(() => {
-      //   this.setToFit();
-      // }, 2000);
-    });
+    /**
+     * @params
+     * dataset: 
+     *          Geolife 0
+                guangzhou30seconds 1
+                guangzhou60seconds 2
+                brinkhoff 3
+     * algorithm:
+                dpstp 0
+                dpstar 1
+     * size: 50 100 300 500 1000 5000 10000
+     * 
+     */
+
+    // let data = {
+    //   dataset: parseInt(this.state.dataset),
+    //   algorithm: parseInt(this.state.model),
+    //   size: parseInt(this.state.size),
+    // };
+
+    // axios
+    //   .post("https://common.qgailab.com/data", data, {
+    //     headers: {
+    //       "Content-type": "application/json",
+    //     },
+    //   })
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       let data = res.data;
+    //       // 渲染散点图
+    //       this.strokeDot(data);
+    //       window.mapData = data;
+    //       resolve();
+    //     }
+    //   });
   }
 
   // 创建散点图层
   createDot(map, data) {
-    // let circleMarker = new AMap.CircleMarker({
-    //   center: center,
-    //   radius: 1, //3D视图下，CircleMarker半径不要超过64px
-    //   fillColor: "blue",
-    //   fillOpacity: 0.5,
-    //   zIndex: 10
-    // });
-    // circleMarker.setMap(map);
     var styleObject = {
       url:
         "https://qg-recruit-video.oss-cn-guangzhou.aliyuncs.com/icon/point.png", // 图标地址
-      size: new AMap.Size(11, 11), // 图标大小
+      size: new AMap.Size(5, 5), // 图标大小
       anchor: new AMap.Pixel(5, 5), // 图标显示位置偏移量，基准点为图标左上角
     };
 
     let mass = new AMap.MassMarks(null, {
       zooms: [0, 19], // 在指定地图缩放级别范围内展示海量点图层
       style: styleObject, // 设置样式对象
+      alwaysRender: false,
     });
     mass.setData(data);
     mass.setMap(map);
@@ -147,34 +208,18 @@ class Map extends Component {
   // 渲染散点图层
   strokeDot(data) {
     let { origin, dp1, dp2, dp3, dp4 } = data;
-
     const { map0, dp1_map, dp2_map, dp3_map, dp4_map } = this.state;
 
-    let temp0 = origin.concat(this.state.origin);
-    let temp1 = dp1.concat(this.state.dp1);
-    let temp2 = dp2.concat(this.state.dp2);
-    let temp3 = dp3.concat(this.state.dp3);
-    let temp4 = dp4.concat(this.state.dp4);
-    this.setState({
-      origin: temp0,
-      dp1: temp1,
-      dp2: temp2,
-      dp3: temp3,
-      dp4: temp4,
-    });
-
-    this.createDot(map0, this.state.origin);
-    this.createDot(dp1_map, this.state.dp1);
-    this.createDot(dp2_map, this.state.dp2);
-    this.createDot(dp3_map, this.state.dp3);
-    this.createDot(dp4_map, this.state.dp4);
+    this.createDot(map0, origin);
+    this.createDot(dp1_map, dp1);
+    this.createDot(dp2_map, dp2);
+    this.createDot(dp3_map, dp3);
+    this.createDot(dp4_map, dp4);
   }
   // 设置合适的视角
   setToFit() {
     const { map0, dp1_map, dp2_map, dp3_map, dp4_map } = this.state;
     map0.setFitView();
-    // map0.setCenter(map0.getCenter());
-    // map0.setZoom(8);
     dp1_map.setCenter(map0.getCenter());
     dp1_map.setZoom(map0.getZoom());
     dp2_map.setCenter(map0.getCenter());
@@ -185,54 +230,86 @@ class Map extends Component {
     dp4_map.setZoom(map0.getZoom());
   }
 
+  // 根据数据集设置缩放等级和center
+  setViewForData() {
+    const { map0, dp1_map, dp2_map, dp3_map, dp4_map } = this.state;
+    if (this.state.dataset == "GeoLife") {
+      map0.setCenter(options[0].center);
+      dp1_map.setCenter(options[0].center);
+      dp2_map.setCenter(options[0].center);
+      dp3_map.setCenter(options[0].center);
+      dp4_map.setCenter(options[0].center);
+      map0.setZoom(options[0].zoom);
+      dp1_map.setZoom(options[0].zoom);
+      dp2_map.setZoom(options[0].zoom);
+      dp3_map.setZoom(options[0].zoom);
+      dp4_map.setZoom(options[0].zoom);
+    } else if (this.state.dataset == "Brinkhoff") {
+      map0.setCenter(options[2].center);
+      dp1_map.setCenter(options[2].center);
+      dp2_map.setCenter(options[2].center);
+      dp3_map.setCenter(options[2].center);
+      dp4_map.setCenter(options[2].center);
+      map0.setZoom(options[2].zoom);
+      dp1_map.setZoom(options[2].zoom);
+      dp2_map.setZoom(options[2].zoom);
+      dp3_map.setZoom(options[2].zoom);
+      dp4_map.setZoom(options[2].zoom);
+    } else {
+      map0.setCenter(options[1].center);
+      dp1_map.setCenter(options[1].center);
+      dp2_map.setCenter(options[1].center);
+      dp3_map.setCenter(options[1].center);
+      dp4_map.setCenter(options[1].center);
+      map0.setZoom(options[1].zoom);
+      dp1_map.setZoom(options[1].zoom);
+      dp2_map.setZoom(options[1].zoom);
+      dp3_map.setZoom(options[1].zoom);
+      dp4_map.setZoom(options[1].zoom);
+    }
+  }
+
   handleChange(e) {
     this.setState({
       [e.target.id]: e.target.value,
     });
-
-    window[e.target.id] = e.target.value;
   }
 
   render() {
-    let that = this;
-    function renderLoading() {
-      if (!that.state.hasData) {
-        return (
-          <div className="loading flex-center">
-            <Spin />
-          </div>
-        );
-      }
-    }
+    const content = (
+      <div>
+        <p>Click this button to adjust other maps to the same zoom as the Original map</p>
+      </div>
+    )
     return (
-      <div className="mapCmp flex-center">
-        <div className="map-container flex-around-col origin-map">
+      <div className="mapCmp flex-around-wrap">
+        <div className="map-container flex-start-col">
           <Divider orientation="center">Option</Divider>
-          <div
-            className="option flex-around-col"
-            style={{ width: "80%", height: "50%" }}
-          >
+          <div className="option maps flex-around-col">
             <div className="flex-between" style={{ width: "80%" }}>
-              <div>Select Model:</div>
+              <div>Model:</div>
               <select
                 value={this.state.model}
                 id="model"
                 onChange={this.handleChange}
               >
-                <option value="DP-STP">DP-STP</option>
-                <option value="DP-STAR">DP-STAR</option>
+                <option value="DPSTP">DP-STP</option>
+                <option value="DPSTAR">DP-STAR</option>
+                {/* <option value="0">DP-STP</option>
+                <option value="1">DP-STAR</option> */}
               </select>
             </div>
             <div className="flex-between" style={{ width: "80%" }}>
-              <div>Select Dataset:</div>
+              <div>Dataset:</div>
               <select
                 value={window.dataset}
                 id="dataset"
                 onChange={this.handleChange}
               >
                 <option value="GeoLife">GeoLife</option>
+                <option value="GuangZhou30seconds">GuangzhouTaxi_30</option>
+                <option value="GuangZhou60seconds">GuangzhouTaxi_60</option>
                 <option value="Brinkhoff">Brinkhoff</option>
-                <option value="GZTaxi">GuangzhouTaxi</option>
               </select>
             </div>
             <div className="flex-between" style={{ width: "80%" }}>
@@ -247,37 +324,86 @@ class Map extends Component {
                 <option value="300">300</option>
                 <option value="500">500</option>
                 <option value="1000">1000</option>
-                <option value="5000">5000</option>
+                <option value="3000">5000</option>
                 <option value="10000">10000</option>
               </select>
             </div>
             <div className="flex-between" style={{ width: "80%" }}>
+            <Popover content={content} title="Tips" placement="bottom">
               <Button type="primary" size="large" onClick={this.setToFit}>
                 Set To Fitview
               </Button>
+              </Popover>
               <Button type="primary" size="large" onClick={this.getPath}>
                 Submit
               </Button>
             </div>
           </div>
-          <Divider orientation="center">Origin</Divider>
-          <div id="originMap" style={{ width: "400px", height: "50%" }}></div>
         </div>
-        <div className="map-container flex-start-col analyzed-map">
-          <Divider orientation="center">{this.state.model}(0.1)</Divider>
-          <div id="dp1" style={{ width: "400px", height: "50%" }}></div>
-          {/* <Link to="/mapDetail"> */}
-            <Divider orientation="center">{this.state.model}(1.0)</Divider>
-          {/* </Link> */}
-          <div id="dp3" style={{ width: "400px", height: "50%" }}></div>
+        <div className="map-container flex-start-col">
+          <Divider orientation="center">
+            {this.state.model === "DPSTP" ? "DP-STP" : "DP-STAR"}(ε=0.1)
+          </Divider>
+          <div id="dp1" className="maps"></div>
+          {/* <div className="maps">
+            <img
+              style={{ width: "100%", height: "100%" }}
+              src={`https://qg-recruit-video.oss-cn-guangzhou.aliyuncs.com/${this.state.model}/${this.state.size}/1.png`}
+              alt=""
+            />
+          </div> */}
         </div>
-        <div className="map-container flex-start-col analyzed-map">
-          <Divider orientation="center">{this.state.model}(0.5)</Divider>
-          <div id="dp2" style={{ width: "400px", height: "50%" }}></div>
-          <Divider orientation="center">{this.state.model}(2.0)</Divider>
-          <div id="dp4" style={{ width: "400px", height: "50%" }}></div>
+        <div className="map-container flex-start-col">
+          <Divider orientation="center">
+            {this.state.model === "DPSTP" ? "DP-STP" : "DP-STAR"}(ε=0.5)
+          </Divider>
+          <div id="dp2" className="maps"></div>
+          {/* <div className="maps">
+            <img
+              style={{ width: "100%", height: "100%" }}
+              src={`https://qg-recruit-video.oss-cn-guangzhou.aliyuncs.com/${this.state.model}/${this.state.size}/3.png`}
+              alt=""
+            />
+          </div> */}
         </div>
-        {renderLoading()}
+        <div className="map-container flex-start-col">
+          <Divider orientation="center">Original</Divider>
+          <div id="originMap" className="maps"></div>
+
+          {/* <div className="maps">
+            <img
+              style={{ width: "100%", height: "100%" }}
+              src={`https://qg-recruit-video.oss-cn-guangzhou.aliyuncs.com/${this.state.model}/${this.state.size}/0.png`}
+              alt=""
+            />
+          </div> */}
+        </div>
+        <div className="map-container flex-start-col">
+          <Divider orientation="center">
+            {this.state.model === "DPSTP" ? "DP-STP" : "DP-STAR"}(ε=1.0)
+          </Divider>
+          <div id="dp3" className="maps"></div>
+          {/* <div className="maps">
+            <img
+              style={{ width: "100%", height: "100%" }}
+              src={`https://qg-recruit-video.oss-cn-guangzhou.aliyuncs.com/${this.state.model}/${this.state.size}/2.png`}
+              alt=""
+            />
+          </div> */}
+        </div>
+        <div className="map-container flex-start-col">
+          <Divider orientation="center">
+            {this.state.model === "DPSTP" ? "DP-STP" : "DP-STAR"}(ε=2.0)
+          </Divider>
+          <div id="dp4" className="maps"></div>
+          {/* <div className="maps">
+            <img
+              style={{ width: "100%", height: "100%" }}
+              src={`https://qg-recruit-video.oss-cn-guangzhou.aliyuncs.com/${this.state.model}/${this.state.size}/4.png`}
+              alt=""
+            />
+          </div> */}
+        </div>
       </div>
     );
   }

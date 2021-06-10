@@ -2,7 +2,7 @@ import React from "react";
 import { HashRouter as Router, Link, Route } from "react-router-dom";
 import { Menu, Layout } from "antd";
 import Statistic from "./views/Statistic/Statistic";
-import Map from "./views/Map/Map";
+// import Map from "./views/Map/Map";
 import DotMap from "./views/DotMap/DotMap";
 import Home from "./views/Home/Home";
 import Contrast from "./views/Contrast/Contrast";
@@ -17,22 +17,37 @@ import "./App.less";
 import { Footer } from "antd/lib/layout/layout";
 
 const { Header, Content } = Layout;
-const { SubMenu } = Menu;
 
 class App extends React.Component {
   constructor(props){
     super(props);
-    window.dataset = "GeoLife";
-    window.size = 50;
-    window.indicator = 'dp1';
   }
   state = {
     current: "home",
   };
   componentDidMount() {
-    this.setState({
-      current: this.GetUrlRelativePath(),
-    });
+    let p = new Promise((res,rej)=>{
+      this.setState({
+        current: this.GetUrlRelativePath(),
+        ws : new WebSocket('')
+      });
+      res();
+    })
+
+    p.then(data=>{
+      this.state.ws.onopen = function() {
+        console.log('socket connected');
+      }
+      this.state.ws.onclose = function() {
+        console.log('socket closed');
+      }
+      this.state.ws.onerror = function() {
+        console.log('socket error');
+      }
+    }) 
+  }
+  componentWillUnmount() {
+    this.state.ws.close();
   }
   GetUrlRelativePath() {
     var url = document.location.toString();
@@ -72,10 +87,10 @@ class App extends React.Component {
                 <Link to="/statistic/Geolife">Statistic</Link>
               </Menu.Item>
               <Menu.Item key="dotMap" icon={<BoxPlotOutlined />}>
-                <Link to="/dotMap">DotMap</Link>
+                <Link to="/dotMap">Comparison Of Indices</Link>
               </Menu.Item>
               <Menu.Item key="contrast" icon={<BoxPlotOutlined />}>
-                <Link to="/contrast">Contrast</Link>
+                <Link to="/contrast">Algorithm Comparison</Link>
               </Menu.Item>
             </Menu>
           </Header>
@@ -88,7 +103,7 @@ class App extends React.Component {
           </Content>
 
           <Footer className="icdm-footer flex-center">
-            DP-STP Created By QGStudio
+            {/* DP-STP Created By QGStudio */}
           </Footer>
         </Layout>
       </Router>
