@@ -173,8 +173,8 @@ class MapDetail extends Component {
           this.setState({
             isRequesting: false,
           });
-          setTimeout(loading1, 1000);
-          setTimeout(loading2, 1000);
+          setTimeout(loading1, 0);
+          setTimeout(loading2, 0);
           if (res.status === 200) {
             let data = res.data;
             // 渲染散点图
@@ -183,7 +183,7 @@ class MapDetail extends Component {
             });
             this.strokeDot(data);
             message.success({
-              content: "Data Loaded",
+              content: "Data Loaded"
             });
           } else {
             message.error({
@@ -195,8 +195,8 @@ class MapDetail extends Component {
           this.setState({
             isRequesting: false,
           });
-          setTimeout(loading1, 1000);
-          setTimeout(loading2, 1000);
+          setTimeout(loading1, 0);
+          setTimeout(loading2, 0);
           message.error({
             content: "Network Error!",
           });
@@ -283,8 +283,8 @@ class MapDetail extends Component {
               onChange={this.handleChange}
             >
               <option value="GeoLife">GeoLife</option>
-              <option value="GuangZhou30seconds">GuangzhouTaxi_30</option>
-              <option value="GuangZhou60seconds">GuangzhouTaxi_60</option>
+              <option value="GuangZhou30seconds">GZTaxi(~30 seconds)</option>
+              <option value="GuangZhou60seconds">GZTaxi(~60 seconds)</option>
               <option value="Brinkhoff">Brinkhoff</option>
             </select>
           </div>
@@ -305,7 +305,7 @@ class MapDetail extends Component {
             </select>
           </div>
           <div className="flex-between option-item">
-            <div>Indicator:</div>
+            <div>Epsilon:</div>
             <select
               value={this.state.indicator}
               onChange={this.handleChange}
@@ -342,7 +342,7 @@ class MapDetail extends Component {
           <div id="trained_map" className="detail-map"></div>
         </div>
         <div style={{ height: "100%", width: "25%" }}>
-          <MyDivider model="DP-STAR" />
+          <MyDivider model="DP-Star" />
           <div id="dpstar_map" className="detail-map"></div>
         </div>
       </div>

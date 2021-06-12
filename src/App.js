@@ -6,10 +6,12 @@ import Statistic from "./views/Statistic/Statistic";
 import DotMap from "./views/DotMap/DotMap";
 import Home from "./views/Home/Home";
 import Contrast from "./views/Contrast/Contrast";
+import Dataset from './views/Dataset/Dataset';
 import {
   LineChartOutlined,
   BoxPlotOutlined,
   HomeOutlined,
+  DatabaseOutlined
 } from "@ant-design/icons";
 
 // less样式
@@ -29,7 +31,7 @@ class App extends React.Component {
     let p = new Promise((res,rej)=>{
       this.setState({
         current: this.GetUrlRelativePath(),
-        ws : new WebSocket('')
+        ws : new WebSocket('ws://common.qgailab.com:8082/data/in')
       });
       res();
     })
@@ -37,6 +39,9 @@ class App extends React.Component {
     p.then(data=>{
       this.state.ws.onopen = function() {
         console.log('socket connected');
+      }
+      this.state.ws.onmessage = function(data) {
+        console.log(data);
       }
       this.state.ws.onclose = function() {
         console.log('socket closed');
@@ -83,6 +88,9 @@ class App extends React.Component {
               <Menu.Item key="home" icon={<HomeOutlined />}>
                 <Link to="/">Home</Link>
               </Menu.Item>
+              <Menu.Item key="dataset" icon={<DatabaseOutlined />}>
+                <Link to="/dataset">Dataset & Metrics</Link>
+              </Menu.Item>
               <Menu.Item key="statistic/Geolife" icon={<LineChartOutlined />}>
                 <Link to="/statistic/Geolife">Statistic</Link>
               </Menu.Item>
@@ -100,6 +108,7 @@ class App extends React.Component {
             <Route path="/statistic" component={Statistic}></Route>
             <Route path="/dotMap" component={DotMap}></Route>
             <Route path="/contrast" component={Contrast}></Route>
+            <Route path="/dataset" component={Dataset}></Route>
           </Content>
 
           <Footer className="icdm-footer flex-center">

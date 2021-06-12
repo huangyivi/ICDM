@@ -117,15 +117,15 @@ class Map extends Component {
           this.setState({
             isRequesting: false,
           });
-          setTimeout(loading1, 1000);
-          setTimeout(loading2, 1000);
+          setTimeout(loading1, 0);
+          setTimeout(loading2, 0);
           if (res.status === 200) {
             let data = res.data;
             // 渲染散点图
             this.strokeDot(data);
             window.mapData = data;
             message.success({
-              content: "Data Loaded",
+              content: "Data Loaded"
             });
           } else {
             message.error({
@@ -137,8 +137,8 @@ class Map extends Component {
           this.setState({
             isRequesting: false,
           });
-          setTimeout(loading1, 1000);
-          setTimeout(loading2, 1000);
+          setTimeout(loading1, 0);
+          setTimeout(loading2, 0);
           message.error({
             content: "Network Error!",
           });
@@ -294,7 +294,7 @@ class Map extends Component {
                 onChange={this.handleChange}
               >
                 <option value="DPSTP">DP-STP</option>
-                <option value="DPSTAR">DP-STAR</option>
+                <option value="DPSTAR">DP-Star</option>
                 {/* <option value="0">DP-STP</option>
                 <option value="1">DP-STAR</option> */}
               </select>
@@ -307,13 +307,13 @@ class Map extends Component {
                 onChange={this.handleChange}
               >
                 <option value="GeoLife">GeoLife</option>
-                <option value="GuangZhou30seconds">GuangzhouTaxi_30</option>
-                <option value="GuangZhou60seconds">GuangzhouTaxi_60</option>
+                <option value="GuangZhou30seconds">GZTaxi(~30 seconds)</option>
+                <option value="GuangZhou60seconds">GZTaxi(~60 seconds)</option>
                 <option value="Brinkhoff">Brinkhoff</option>
               </select>
             </div>
             <div className="flex-between" style={{ width: "80%" }}>
-              <div>Select Data Size:</div>
+              <div>Data Size:</div>
               <select
                 value={this.state.size}
                 onChange={this.handleChange}
@@ -342,7 +342,7 @@ class Map extends Component {
         </div>
         <div className="map-container flex-start-col">
           <Divider orientation="center">
-            {this.state.model === "DPSTP" ? "DP-STP" : "DP-STAR"}(ε=0.1)
+            {this.state.model === "DPSTP" ? "DP-STP" : "DP-Star"}(ε=0.1)
           </Divider>
           <div id="dp1" className="maps"></div>
           {/* <div className="maps">
@@ -355,7 +355,7 @@ class Map extends Component {
         </div>
         <div className="map-container flex-start-col">
           <Divider orientation="center">
-            {this.state.model === "DPSTP" ? "DP-STP" : "DP-STAR"}(ε=0.5)
+            {this.state.model === "DPSTP" ? "DP-STP" : "DP-Star"}(ε=0.5)
           </Divider>
           <div id="dp2" className="maps"></div>
           {/* <div className="maps">
@@ -380,7 +380,7 @@ class Map extends Component {
         </div>
         <div className="map-container flex-start-col">
           <Divider orientation="center">
-            {this.state.model === "DPSTP" ? "DP-STP" : "DP-STAR"}(ε=1.0)
+            {this.state.model === "DPSTP" ? "DP-STP" : "DP-Star"}(ε=1.0)
           </Divider>
           <div id="dp3" className="maps"></div>
           {/* <div className="maps">
@@ -393,7 +393,7 @@ class Map extends Component {
         </div>
         <div className="map-container flex-start-col">
           <Divider orientation="center">
-            {this.state.model === "DPSTP" ? "DP-STP" : "DP-STAR"}(ε=2.0)
+            {this.state.model === "DPSTP" ? "DP-STP" : "DP-Star"}(ε=2.0)
           </Divider>
           <div id="dp4" className="maps"></div>
           {/* <div className="maps">

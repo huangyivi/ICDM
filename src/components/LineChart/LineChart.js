@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Chart } from "@antv/g2";
-import { PageHeader, Spin } from "antd";
+import { PageHeader, Spin, Card } from "antd";
 import "./LineChart.less";
-
 
 class LineChart extends Component {
   state = {
@@ -32,13 +31,20 @@ class LineChart extends Component {
           max: max,
         },
       });
+      chart.scale("epsilon", {
+        min: 0.1,
+        type: "quantize",
+        // tickCount: 4,
+        // tickInterval: 0.1
+        ticks: [0.1, 0.5, 1.0, 2.0],
+      });
 
       chart.axis("DPSTP", false);
       chart.legend({
         custom: true,
         items: [
           {
-            name: "DP-STAR",
+            name: "DP-Star",
             value: "DPSTAR",
             marker: {
               symbol: "line",
@@ -78,50 +84,74 @@ class LineChart extends Component {
   }
 
   componentDidMount() {
-
     // 计算每个图表的值域
     let arr = [];
     for (let i of this.props.data.RE) {
       arr.push(i.DPSTAR);
       arr.push(i.DPSTP);
     }
-    this.maxs.push(arr.sort((a,b)=>a-b)[arr.length - 1]);
-    this.mins.push(arr.sort((a,b)=>a-b)[0]);
+    this.maxs.push(arr.sort((a, b) => a - b)[arr.length - 1]);
+    this.mins.push(arr.sort((a, b) => a - b)[0]);
     arr = [];
     for (let i of this.props.data.FP) {
       arr.push(i.DPSTAR);
       arr.push(i.DPSTP);
     }
-    this.maxs.push(arr.sort((a,b)=>a-b)[arr.length - 1]);
-    this.mins.push(arr.sort((a,b)=>a-b)[0]);
+    this.maxs.push(arr.sort((a, b) => a - b)[arr.length - 1]);
+    this.mins.push(arr.sort((a, b) => a - b)[0]);
     arr = [];
     for (let i of this.props.data.KT) {
       arr.push(i.DPSTAR);
       arr.push(i.DPSTP);
     }
-    this.maxs.push(arr.sort((a,b)=>a-b)[arr.length - 1]);
-    this.mins.push(arr.sort((a,b)=>a-b)[0]);
+    this.maxs.push(arr.sort((a, b) => a - b)[arr.length - 1]);
+    this.mins.push(arr.sort((a, b) => a - b)[0]);
     arr = [];
     for (let i of this.props.data.TE) {
       arr.push(i.DPSTAR);
       arr.push(i.DPSTP);
     }
-    this.maxs.push(arr.sort((a,b)=>a-b)[arr.length - 1]);
-    this.mins.push(arr.sort((a,b)=>a-b)[0]);
+    this.maxs.push(arr.sort((a, b) => a - b)[arr.length - 1]);
+    this.mins.push(arr.sort((a, b) => a - b)[0]);
     arr = [];
     for (let i of this.props.data.DE) {
       arr.push(i.DPSTAR);
       arr.push(i.DPSTP);
     }
-    this.maxs.push(arr.sort((a,b)=>a-b)[arr.length - 1]);
-    this.mins.push(arr.sort((a,b)=>a-b)[0]);
+    this.maxs.push(arr.sort((a, b) => a - b)[arr.length - 1]);
+    this.mins.push(arr.sort((a, b) => a - b)[0]);
     arr = [];
     // 渲染图标
-    this.createLineChart("RE", this.props.data.RE,this.mins[0]-0.1,this.maxs[0]+0.1);
-    this.createLineChart("FP", this.props.data.FP,this.mins[1]-0.1,this.maxs[1]+0.1);
-    this.createLineChart("KT", this.props.data.KT,this.mins[2]-0.1,this.maxs[2]+0.15);
-    this.createLineChart("TE", this.props.data.TE,this.mins[3]-0.1,this.maxs[3]+0.1);
-    this.createLineChart("DE", this.props.data.DE,this.mins[4]-0.1,this.maxs[4]+0.1);
+    this.createLineChart(
+      "RE",
+      this.props.data.RE,
+      this.mins[0] - 0.1,
+      this.maxs[0] + 0.1
+    );
+    this.createLineChart(
+      "FP",
+      this.props.data.FP,
+      this.mins[1] - 0.1,
+      this.maxs[1] + 0.1
+    );
+    this.createLineChart(
+      "KT",
+      this.props.data.KT,
+      this.mins[2] - 0.1,
+      this.maxs[2] + 0.15
+    );
+    this.createLineChart(
+      "TE",
+      this.props.data.TE,
+      this.mins[3] - 0.1,
+      this.maxs[3] + 0.1
+    );
+    this.createLineChart(
+      "DE",
+      this.props.data.DE,
+      this.mins[4] - 0.1,
+      this.maxs[4] + 0.1
+    );
   }
   render() {
     if (this.state.hasData) {
@@ -151,6 +181,15 @@ class LineChart extends Component {
             <div className="chart-items">
               <PageHeader title="TE" style={{ height: "20px" }} />
               <div id="TE" style={{ width: "80%", height: "80%" }}></div>
+            </div>
+            <div className="chart-items">
+              <Card
+                title="Dataset Introduction"
+                style={{ width: "80%" }}
+                hoverable
+              >
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.intro}</p>
+              </Card>
             </div>
           </div>
         </div>
