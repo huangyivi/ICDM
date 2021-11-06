@@ -96,14 +96,14 @@ class App extends React.Component {
               <Menu.Item key="statistic/Geolife" icon={<LineChartOutlined />}>
                 <Link to="/statistic/Geolife">Statistic</Link>
               </Menu.Item>
+              <Menu.Item key="overall" icon={<LineChartOutlined />}>
+                <Link to="/overall">Overall Comparison</Link>
+              </Menu.Item>
               <Menu.Item key="dotMap" icon={<BoxPlotOutlined />}>
                 <Link to="/dotMap">Comparison Of Indices</Link>
               </Menu.Item>
               <Menu.Item key="contrast" icon={<BoxPlotOutlined />}>
                 <Link to="/contrast">Algorithm Comparison</Link>
-              </Menu.Item>
-              <Menu.Item key="overall" icon={<LineChartOutlined />}>
-                <Link to="/overall">Overall Comparison</Link>
               </Menu.Item>
             </Menu>
           </Header>
