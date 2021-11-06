@@ -177,15 +177,15 @@ class Map extends Component {
           <div id="originMap" style={{ width: "400px", height: "230px" }}></div>
         </div>
         <div className="map-container flex-start-col analyzed-map">
-          <Divider orientation="center">DP-STP(0.1)</Divider>
+          <Divider orientation="center">AWDP(0.1)</Divider>
           <div id="dp1" style={{ width: "400px", height: "230px" }}></div>
-          <Divider orientation="center">DP-STP(0.5)</Divider>
+          <Divider orientation="center">AWDP(0.5)</Divider>
           <div id="dp2" style={{ width: "400px", height: "230px" }}></div>
         </div>
         <div className="map-container flex-start-col analyzed-map">
-          <Divider orientation="center">DP-STP(1.0)</Divider>
+          <Divider orientation="center">AWDP(1.0)</Divider>
           <div id="dp3" style={{ width: "400px", height: "230px" }}></div>
-          <Divider orientation="center">DP-STP(2.0)</Divider>
+          <Divider orientation="center">AWDP(2.0)</Divider>
           <div id="dp4" style={{ width: "400px", height: "230px" }}></div>
         </div>
         {renderLoading()}

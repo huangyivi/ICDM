@@ -293,7 +293,7 @@ class Map extends Component {
                 id="model"
                 onChange={this.handleChange}
               >
-                <option value="DPSTP">DP-STP</option>
+                <option value="DPSTP">AWDP</option>
                 <option value="DPSTAR">DP-Star</option>
                 {/* <option value="0">DP-STP</option>
                 <option value="1">DP-STAR</option> */}
@@ -302,7 +302,7 @@ class Map extends Component {
             <div className="flex-between" style={{ width: "80%" }}>
               <div>Dataset:</div>
               <select
-                value={window.dataset}
+                value={this.state.dataset}
                 id="dataset"
                 onChange={this.handleChange}
               >
@@ -342,7 +342,7 @@ class Map extends Component {
         </div>
         <div className="map-container flex-start-col">
           <Divider orientation="center">
-            {this.state.model === "DPSTP" ? "DP-STP" : "DP-Star"}(ε=0.1)
+            {this.state.model === "AWDP" ? "AWDP" : "DP-Star"}(ε=0.1)
           </Divider>
           <div id="dp1" className="maps"></div>
           {/* <div className="maps">
@@ -355,7 +355,7 @@ class Map extends Component {
         </div>
         <div className="map-container flex-start-col">
           <Divider orientation="center">
-            {this.state.model === "DPSTP" ? "DP-STP" : "DP-Star"}(ε=0.5)
+            {this.state.model === "AWDP" ? "AWDP" : "DP-Star"}(ε=0.5)
           </Divider>
           <div id="dp2" className="maps"></div>
           {/* <div className="maps">
@@ -380,7 +380,7 @@ class Map extends Component {
         </div>
         <div className="map-container flex-start-col">
           <Divider orientation="center">
-            {this.state.model === "DPSTP" ? "DP-STP" : "DP-Star"}(ε=1.0)
+            {this.state.model === "AWDP" ? "AWDP" : "DP-Star"}(ε=1.0)
           </Divider>
           <div id="dp3" className="maps"></div>
           {/* <div className="maps">
@@ -393,7 +393,7 @@ class Map extends Component {
         </div>
         <div className="map-container flex-start-col">
           <Divider orientation="center">
-            {this.state.model === "DPSTP" ? "DP-STP" : "DP-Star"}(ε=2.0)
+            {this.state.model === "AWDP" ? "AWDP" : "DP-Star"}(ε=2.0)
           </Divider>
           <div id="dp4" className="maps"></div>
           {/* <div className="maps">

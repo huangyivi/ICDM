@@ -48,11 +48,12 @@ class Statistic extends Component {
                   <Link to="/statistic/Brinkhoff">Brinkhoff</Link>
                 </Menu.Item>
                 <Menu.Item key="line3" icon={<LineChartOutlined />}>
-                  <Link to="/statistic/GuangZhouTaxi_30s">GZTaxi (~30 seconds)</Link>
+                  {/* <Link to="/statistic/GuangZhouTaxi_30s">GZTaxi (~30 seconds)</Link> */}
+                  <Link to="/statistic/GuangZhouTaxi_30s">GZTaxi</Link>
                 </Menu.Item>
-                <Menu.Item key="line4" icon={<LineChartOutlined />}>
+                {/* <Menu.Item key="line4" icon={<LineChartOutlined />}>
                   <Link to="/statistic/GuangZhouTaxi_60s">GZTaxi (~60 seconds)</Link>
-                </Menu.Item>
+                </Menu.Item> */}
                 {/* <Menu.Item key="line2">
                   <Link to="/statistic/Brinkhoff">Brinkhoff</Link>
                 </Menu.Item>

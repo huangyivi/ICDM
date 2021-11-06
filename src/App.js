@@ -7,6 +7,8 @@ import DotMap from "./views/DotMap/DotMap";
 import Home from "./views/Home/Home";
 import Contrast from "./views/Contrast/Contrast";
 import Dataset from './views/Dataset/Dataset';
+import Overall from "./views/Overall/Overall";
+
 import {
   LineChartOutlined,
   BoxPlotOutlined,
@@ -78,7 +80,7 @@ class App extends React.Component {
       <Router>
         <Layout className="layout">
           <Header className="icdm-header flex-start">
-            <div className="icdm-logo flex-center">DP-STP</div>
+            <div className="icdm-logo flex-center">AWDP</div>
             <Menu
               onClick={this.handleClick}
               selectedKeys={[current]}
@@ -100,6 +102,9 @@ class App extends React.Component {
               <Menu.Item key="contrast" icon={<BoxPlotOutlined />}>
                 <Link to="/contrast">Algorithm Comparison</Link>
               </Menu.Item>
+              <Menu.Item key="overall" icon={<LineChartOutlined />}>
+                <Link to="/overall">Overall Comparison</Link>
+              </Menu.Item>
             </Menu>
           </Header>
 
@@ -109,6 +114,7 @@ class App extends React.Component {
             <Route path="/dotMap" component={DotMap}></Route>
             <Route path="/contrast" component={Contrast}></Route>
             <Route path="/dataset" component={Dataset}></Route>
+            <Route path="/overall" component={Overall}></Route>
           </Content>
 
           <Footer className="icdm-footer flex-center">

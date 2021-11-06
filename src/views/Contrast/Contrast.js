@@ -338,7 +338,7 @@ class MapDetail extends Component {
           <div id="original_map" className="detail-map"></div>
         </div>
         <div style={{ height: "100%", width: "25%" }}>
-          <MyDivider model="DP-STP" />
+          <MyDivider model="AWDP" />
           <div id="trained_map" className="detail-map"></div>
         </div>
         <div style={{ height: "100%", width: "25%" }}>

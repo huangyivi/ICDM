@@ -22,7 +22,7 @@ class LineChart extends Component {
       });
       chart.data(data);
       chart.scale({
-        DPSTP: {
+        AWDP: {
           min: min,
           max: max,
         },
@@ -39,7 +39,7 @@ class LineChart extends Component {
         ticks: [0.1, 0.5, 1.0, 2.0],
       });
 
-      chart.axis("DPSTP", false);
+      chart.axis("AWDP", false);
       chart.legend({
         custom: true,
         items: [
@@ -52,8 +52,8 @@ class LineChart extends Component {
             },
           },
           {
-            name: "DP-STP",
-            value: "DPSTP",
+            name: "AWDP",
+            value: "AWDP",
             marker: {
               symbol: "line",
               style: { stroke: "#2fc25b", lineWidth: 20 },
@@ -65,7 +65,7 @@ class LineChart extends Component {
       });
 
       chart.line().position("epsilon*DPSTAR").color("#1890ff");
-      chart.line().position("epsilon*DPSTP").color("#2fc25b");
+      chart.line().position("epsilon*AWDP").color("#2fc25b");
       chart
         .point()
         .position("epsilon*DPSTAR")
@@ -74,7 +74,7 @@ class LineChart extends Component {
         .size(7);
       chart
         .point()
-        .position("epsilon*DPSTP")
+        .position("epsilon*AWDP")
         .color("#2fc25b")
         .shape("diamond")
         .size(8);
@@ -88,35 +88,35 @@ class LineChart extends Component {
     let arr = [];
     for (let i of this.props.data.RE) {
       arr.push(i.DPSTAR);
-      arr.push(i.DPSTP);
+      arr.push(i.AWDP);
     }
     this.maxs.push(arr.sort((a, b) => a - b)[arr.length - 1]);
     this.mins.push(arr.sort((a, b) => a - b)[0]);
     arr = [];
     for (let i of this.props.data.FP) {
       arr.push(i.DPSTAR);
-      arr.push(i.DPSTP);
+      arr.push(i.AWDP);
     }
     this.maxs.push(arr.sort((a, b) => a - b)[arr.length - 1]);
     this.mins.push(arr.sort((a, b) => a - b)[0]);
     arr = [];
     for (let i of this.props.data.KT) {
       arr.push(i.DPSTAR);
-      arr.push(i.DPSTP);
+      arr.push(i.AWDP);
     }
     this.maxs.push(arr.sort((a, b) => a - b)[arr.length - 1]);
     this.mins.push(arr.sort((a, b) => a - b)[0]);
     arr = [];
     for (let i of this.props.data.TE) {
       arr.push(i.DPSTAR);
-      arr.push(i.DPSTP);
+      arr.push(i.AWDP);
     }
     this.maxs.push(arr.sort((a, b) => a - b)[arr.length - 1]);
     this.mins.push(arr.sort((a, b) => a - b)[0]);
     arr = [];
     for (let i of this.props.data.DE) {
       arr.push(i.DPSTAR);
-      arr.push(i.DPSTP);
+      arr.push(i.AWDP);
     }
     this.maxs.push(arr.sort((a, b) => a - b)[arr.length - 1]);
     this.mins.push(arr.sort((a, b) => a - b)[0]);
