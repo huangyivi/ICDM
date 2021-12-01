@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import "./Home.less";
 
+/**
+ * Home
+ */
 class Home extends Component {
   state = {};
   render() {

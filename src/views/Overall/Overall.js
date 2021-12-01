@@ -1,7 +1,10 @@
 import React from 'react';
 import "./Overall.less";
 
-
+/**
+ * 
+ * Overall Comparison
+ */
 function Overall() {
     return (
         <div className="overall-container">

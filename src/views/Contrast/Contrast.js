@@ -3,6 +3,12 @@ import { Divider, Button, List, Spin, message } from "antd";
 import axios from "axios";
 import "./Contrast.less";
 
+
+/**
+ * Algorithm Comparison
+ */
+
+
 const AMap = window.AMap;
 
 const options = [
@@ -19,6 +25,7 @@ const options = [
     zoom: 3,
   },
 ];
+
 
 class MapDetail extends Component {
   constructor(props) {

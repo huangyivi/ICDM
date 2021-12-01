@@ -8,6 +8,7 @@ import Home from "./views/Home/Home";
 import Contrast from "./views/Contrast/Contrast";
 import Dataset from './views/Dataset/Dataset';
 import Overall from "./views/Overall/Overall";
+import Ablation from "./views/Ablation/Ablation";
 
 import {
   LineChartOutlined,
@@ -93,17 +94,20 @@ class App extends React.Component {
               <Menu.Item key="dataset" icon={<DatabaseOutlined />}>
                 <Link to="/dataset">Dataset & Metrics</Link>
               </Menu.Item>
-              <Menu.Item key="statistic/Geolife" icon={<LineChartOutlined />}>
-                <Link to="/statistic/Geolife">Statistic</Link>
-              </Menu.Item>
               <Menu.Item key="overall" icon={<LineChartOutlined />}>
                 <Link to="/overall">Overall Comparison</Link>
               </Menu.Item>
+              <Menu.Item key="statistic/Geolife" icon={<LineChartOutlined />}>
+                <Link to="/statistic/Geolife">Metric Analysis</Link>
+              </Menu.Item>
               <Menu.Item key="dotMap" icon={<BoxPlotOutlined />}>
-                <Link to="/dotMap">Comparison Of Indices</Link>
+                <Link to="/dotMap">Visual Analysis</Link>
               </Menu.Item>
               <Menu.Item key="contrast" icon={<BoxPlotOutlined />}>
                 <Link to="/contrast">Algorithm Comparison</Link>
+              </Menu.Item>
+              <Menu.Item key="ablation/Introduction" icon={<LineChartOutlined />}>
+                <Link to="/ablation/Introduction">Ablation Analysis</Link>
               </Menu.Item>
             </Menu>
           </Header>
@@ -115,6 +119,7 @@ class App extends React.Component {
             <Route path="/contrast" component={Contrast}></Route>
             <Route path="/dataset" component={Dataset}></Route>
             <Route path="/overall" component={Overall}></Route>
+            <Route path="/ablation" component={Ablation}></Route>
           </Content>
 
           <Footer className="icdm-footer flex-center">
