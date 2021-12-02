@@ -263,16 +263,16 @@ class MapDetail extends Component {
     ];
     let MyDivider = (props) => {
       if (this.state.indicator === "0p1") {
-        return <Divider orientation="left">{props.model}(0.1)</Divider>;
+        return <Divider orientation="left">{props.model}(ϵ=0.1)</Divider>;
       }
       if (this.state.indicator === "0p5") {
-        return <Divider orientation="left">{props.model}(0.5)</Divider>;
+        return <Divider orientation="left">{props.model}(ϵ=0.5)</Divider>;
       }
       if (this.state.indicator === "1p0") {
-        return <Divider orientation="left">{props.model}(1.0)</Divider>;
+        return <Divider orientation="left">{props.model}(ϵ=1.0)</Divider>;
       }
       if (this.state.indicator === "2p0") {
-        return <Divider orientation="left">{props.model}(2.0)</Divider>;
+        return <Divider orientation="left">{props.model}(ϵ=2.0)</Divider>;
       }
     };
     return (
@@ -341,7 +341,7 @@ class MapDetail extends Component {
           ></List>
         </div>
         <div style={{ height: "100%", width: "25%" }}>
-          <Divider orientation="left">Original</Divider>
+          <Divider orientation="left">Original trajectories</Divider>
           <div id="original_map" className="detail-map"></div>
         </div>
         <div style={{ height: "100%", width: "25%" }}>

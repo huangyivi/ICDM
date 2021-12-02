@@ -347,7 +347,7 @@ class Map extends Component {
         </div>
         <div className="map-container flex-start-col">
           <Divider orientation="center">
-            {this.state.model === "DPSTP" ? "AWDP" : "DP-Star"}(ε=0.1)
+            {this.state.model === "DPSTP" ? "AWDP" : "DP-Star"}(ϵ=0.1)
           </Divider>
           <div id="dp1" className="maps"></div>
           {/* <div className="maps">
@@ -360,7 +360,7 @@ class Map extends Component {
         </div>
         <div className="map-container flex-start-col">
           <Divider orientation="center">
-            {this.state.model === "DPSTP" ? "AWDP" : "DP-Star"}(ε=0.5)
+            {this.state.model === "DPSTP" ? "AWDP" : "DP-Star"}(ϵ=0.5)
           </Divider>
           <div id="dp2" className="maps"></div>
           {/* <div className="maps">
@@ -372,7 +372,7 @@ class Map extends Component {
           </div> */}
         </div>
         <div className="map-container flex-start-col">
-          <Divider orientation="center">Original</Divider>
+          <Divider orientation="center">Original trajectories</Divider>
           <div id="originMap" className="maps"></div>
 
           {/* <div className="maps">
@@ -385,7 +385,7 @@ class Map extends Component {
         </div>
         <div className="map-container flex-start-col">
           <Divider orientation="center">
-            {this.state.model === "DPSTP" ? "AWDP" : "DP-Star"}(ε=1.0)
+            {this.state.model === "DPSTP" ? "AWDP" : "DP-Star"}(ϵ=1.0)
           </Divider>
           <div id="dp3" className="maps"></div>
           {/* <div className="maps">
@@ -398,7 +398,7 @@ class Map extends Component {
         </div>
         <div className="map-container flex-start-col">
           <Divider orientation="center">
-            {this.state.model === "DPSTP" ? "AWDP" : "DP-Star"}(ε=2.0)
+            {this.state.model === "DPSTP" ? "AWDP" : "DP-Star"}(ϵ=2.0)
           </Divider>
           <div id="dp4" className="maps"></div>
           {/* <div className="maps">

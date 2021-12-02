@@ -243,27 +243,27 @@ class LineChart extends Component {
         >
           <div className="title">Dataset: {this.props.title}</div>
           <div className="flex-start-wrap chart-container">
-            <div className="chart-items">
+            <div className="chart-items2">
               <PageHeader title="RE" style={{ height: "20px" }} />
               <div id="RE" style={{ width: "80%", height: "80%" }}></div>
             </div>
-            <div className="chart-items">
+            <div className="chart-items2">
               <PageHeader title="FPS" style={{ height: "20px" }} />
               <div id="FP" style={{ width: "80%", height: "80%" }}></div>
             </div>
-            <div className="chart-items">
+            <div className="chart-items2">
               <PageHeader title="KT" style={{ height: "20px" }} />
               <div id="KT" style={{ width: "80%", height: "80%" }}></div>
             </div>
-            <div className="chart-items">
+            <div className="chart-items2">
               <PageHeader title="DE" style={{ height: "20px" }} />
               <div id="DE" style={{ width: "80%", height: "80%" }}></div>
             </div>
-            <div className="chart-items">
+            <div className="chart-items2">
               <PageHeader title="TE" style={{ height: "20px" }} />
               <div id="TE" style={{ width: "80%", height: "80%" }}></div>
             </div>
-            <div className="chart-items">
+            <div className="chart-items2">
               <Card
                 title="Dataset Introduction"
                 style={{ width: "80%" }}
