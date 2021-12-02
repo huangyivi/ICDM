@@ -1,118 +1,178 @@
 const RE = [
-    {
-        "epsilon" : 0.1,
-        "AWDP" : 0.0132,
-        "DPSTAR" : 0.285
-    },
-    {
-        "epsilon" : 0.5,
-        "AWDP" : 0.0121,
-        "DPSTAR" : 0.212
-    },
-    {
-        "epsilon" : 1.0,
-        "AWDP" : 0.0029,
-        "DPSTAR" : 0.171
-    },
-    {
-        "epsilon" : 2.0,
-        "AWDP" : 0.0031,
-        "DPSTAR" : 0.161
-    },
-]
+  {
+    epsilon: 0.1,
+    "Baseline (DP-Star)": 0.286,
+    "Baseline+MRAG": 0.1451,
+    "Baseline+RWDP": 0.0923,
+    "Baseline+STCM": 0.1906,
+    "AWDP": 0.0132,
+  },
+  {
+    epsilon: 0.5,
+    "Baseline (DP-Star)": 0.212,
+    "Baseline+MRAG": 0.1621,
+    "Baseline+RWDP": 0.0737,
+    "Baseline+STCM": 0.1357,
+    "AWDP": 0.0121,
+  },
+  {
+    epsilon: 1.0,
+    "Baseline (DP-Star)": 0.171,
+    "Baseline+MRAG": 0.1262,
+    "Baseline+RWDP": 0.0615,
+    "Baseline+STCM": 0.1126,
+    "AWDP": 0.0029,
+  },
+  {
+    epsilon: 2.0,
+    "Baseline (DP-Star)": 0.161,
+    "Baseline+MRAG": 0.1358,
+    "Baseline+RWDP": 0.0836,
+    "Baseline+STCM": 0.1089,
+    "AWDP": 0.0031,
+  },
+];
 const FP = [
-    {
-        "epsilon" : 0.1,
-        "AWDP" : 0.085,
-        "DPSTAR" : 0.125
-    },
-    {
-        "epsilon" : 0.5,
-        "AWDP" : 0.064,
-        "DPSTAR" : 0.079
-    },
-    {
-        "epsilon" : 1.0,
-        "AWDP" : 0.052,
-        "DPSTAR" : 0.075
-    },
-    {
-        "epsilon" : 2.0,
-        "AWDP" : 0.039,
-        "DPSTAR" : 0.092
-    },
-]
+  {
+    epsilon: 0.1,
+    "Baseline (DP-Star)": 0.125,
+    "Baseline+MRAG": 0.1023,
+    "Baseline+RWDP": 0.0931,
+    "Baseline+STCM": 0.1147,
+    "AWDP": 0.085,
+  },
+  {
+    epsilon: 0.5,
+    "Baseline (DP-Star)": 0.079,
+    "Baseline+MRAG": 0.0723,
+    "Baseline+RWDP": 0.0679,
+    "Baseline+STCM": 0.0761,
+    "AWDP": 0.064,
+  },
+  {
+    epsilon: 1.0,
+    "Baseline (DP-Star)": 0.075,
+    "Baseline+MRAG": 0.0719,
+    "Baseline+RWDP": 0.0625,
+    "Baseline+STCM": 0.0728,
+    "AWDP": 0.052,
+  },
+  {
+    epsilon: 2.0,
+    "Baseline (DP-Star)": 0.092,
+    "Baseline+MRAG": 0.0849,
+    "Baseline+RWDP": 0.0527,
+    "Baseline+STCM": 0.0866,
+    "AWDP": 0.039,
+  },
+];
 const KT = [
-    {
-        "epsilon" : 0.1,
-        "AWDP" : 0.138,
-        "DPSTAR" : -0.004
-    },
-    {
-        "epsilon" : 0.5,
-        "AWDP" : 0.130,
-        "DPSTAR" : 0.025
-    },
-    {
-        "epsilon" : 1.0,
-        "AWDP" : 0.116,
-        "DPSTAR" : 0.005
-    },
-    {
-        "epsilon" : 2.0,
-        "AWDP" : 0.132,
-        "DPSTAR" : 0.004
-    },
-]
+  {
+    epsilon: 0.1,
+    "Baseline (DP-Star)": -0.004,
+    "Baseline+MRAG": 0.0518,
+    "Baseline+RWDP": 0.0792,
+    "Baseline+STCM": 0.0509,
+    "AWDP": 0.138,
+  },
+  {
+    epsilon: 0.5,
+    "Baseline (DP-Star)": 0.025,
+    "Baseline+MRAG": 0.0674,
+    "Baseline+RWDP": 0.0816,
+    "Baseline+STCM": 0.0629,
+    "AWDP": 0.13,
+  },
+  {
+    epsilon: 1.0,
+    "Baseline (DP-Star)": 0.005,
+    "Baseline+MRAG": 0.0577,
+    "Baseline+RWDP": 0.0728,
+    "Baseline+STCM": 0.0561,
+    "AWDP": 0.116,
+  },
+  {
+    epsilon: 2.0,
+    "Baseline (DP-Star)": 0.004,
+    "Baseline+MRAG": 0.0522,
+    "Baseline+RWDP": 0.0788,
+    "Baseline+STCM": 0.0519,
+    "AWDP": 0.132,
+  },
+];
 const TE = [
-    {
-        "epsilon" : 0.1,
-        "AWDP" : 0.125,
-        "DPSTAR" : 0.273
-    },
-    {
-        "epsilon" : 0.5,
-        "AWDP" : 0.114,
-        "DPSTAR" : 0.117
-    },
-    {
-        "epsilon" : 1.0,
-        "AWDP" : 0.080,
-        "DPSTAR" : 0.078
-    },
-    {
-        "epsilon" : 2.0,
-        "AWDP" : 0.037,
-        "DPSTAR" : 0.042
-    },
-]
+  {
+    epsilon: 0.1,
+    "Baseline (DP-Star)": 0.2728,
+    "Baseline+MRAG": 0.2046,
+    "Baseline+RWDP": 0.1657,
+    "Baseline+STCM": 0.2127,
+    "AWDP": 0.125,
+  },
+  {
+    epsilon: 0.5,
+    "Baseline (DP-Star)": 0.117,
+    "Baseline+MRAG": 0.1162,
+    "Baseline+RWDP": 0.1146,
+    "Baseline+STCM": 0.1164,
+    "AWDP": 0.114,
+  },
+  {
+    epsilon: 1.0,
+    "Baseline (DP-Star)": 0.078,
+    "Baseline+MRAG": 0.0772,
+    "Baseline+RWDP": 0.0756,
+    "Baseline+STCM": 0.0778,
+    "AWDP": 0.08,
+  },
+  {
+    epsilon: 2.0,
+    "Baseline (DP-Star)": 0.042,
+    "Baseline+MRAG": 0.0401,
+    "Baseline+RWDP": 0.0378,
+    "Baseline+STCM": 0.0413,
+    "AWDP": 0.037,
+  },
+];
 const DE = [
-    {
-        "epsilon" : 0.1,
-        "AWDP" : 0.058,
-        "DPSTAR" : 0.110
-    },
-    {
-        "epsilon" : 0.5,
-        "AWDP" : 0.053,
-        "DPSTAR" : 0.082
-    },
-    {
-        "epsilon" : 1.0,
-        "AWDP" : 0.068,
-        "DPSTAR" : 0.074
-    },
-    {
-        "epsilon" : 2.0,
-        "AWDP" : 0.067,
-        "DPSTAR" : 0.072
-    },
-]
+  {
+    epsilon: 0.1,
+    "Baseline (DP-Star)": 0.11,
+    "Baseline+MRAG": 0.0827,
+    "Baseline+RWDP": 0.0628,
+    "Baseline+STCM": 0.0855,
+    "AWDP": 0.058,
+  },
+  {
+    epsilon: 0.5,
+    "Baseline (DP-Star)": 0.082,
+    "Baseline+MRAG": 0.0739,
+    "Baseline+RWDP": 0.0621,
+    "Baseline+STCM": 0.0755,
+    "AWDP": 0.053,
+  },
+  {
+    epsilon: 1.0,
+    "Baseline (DP-Star)": 0.074,
+    "Baseline+MRAG": 0.0702,
+    "Baseline+RWDP": 0.0693,
+    "Baseline+STCM": 0.0724,
+    "AWDP": 0.068,
+  },
+  {
+    epsilon: 2.0,
+    "Baseline (DP-Star)": 0.072,
+    "Baseline+MRAG": 0.0691,
+    "Baseline+RWDP": 0.0674,
+    "Baseline+STCM": 0.0705,
+    "AWDP": 0.067,
+  },
+];
 
 export default {
-    RE,
-    FP,
-    KT,
-    TE,
-    DE
-}
+  RE,
+  FP,
+  KT,
+  TE,
+  DE,
+};

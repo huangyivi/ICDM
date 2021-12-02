@@ -18,7 +18,7 @@ class LineChart extends Component {
         container: id,
         autoFit: true,
         // height: 500,
-        padding: [30, 20, 70, 30],
+        padding: [30, 50, 70, 50],
       });
       chart.data(data);
       chart.scale({
@@ -38,7 +38,7 @@ class LineChart extends Component {
           min: min,
           max: max,
         },
-        "Baseline+MRAG+RWDP+STCM": {
+        "AWDP": {
           min: min,
           max: max,
         }
@@ -51,7 +51,16 @@ class LineChart extends Component {
         ticks: [0.1, 0.5, 1.0, 2.0],
       });
 
-      chart.axis("Baseline (DP-Star)", false);
+      // chart.axis("Baseline (DP-Star)", false);
+      chart.axis('epsilon',{
+        title: {
+          text: "privacy budget",
+          position: "center",
+          style: {
+            fontSize: 24
+          }
+        }
+      })
       chart.legend({
         custom: true,
         items: [
@@ -89,22 +98,22 @@ class LineChart extends Component {
             },
           },
           {
-            name: "Baseline+MRAG+RWDP+STCM",
-            value: "Baseline+MRAG+RWDP+STCM",
+            name: "AWDP",
+            value: "AWDP",
             marker: {
               symbol: "line",
               style: { stroke: "#791E94", lineWidth: 20 },
             },
           },
         ],
-        position: "bottom",
+        position: "top-right",
       });
 
       chart.line().position("epsilon*Baseline+MRAG").color("#1890ff");
       chart.line().position("epsilon*Baseline (DP-Star)").color("#2fc25b");
       chart.line().position("epsilon*Baseline+RWDP").color("#F9CE00");
       chart.line().position("epsilon*Baseline+STCM").color("#C00000");
-      chart.line().position("epsilon*Baseline+MRAG+RWDP+STCM").color("#791E94");
+      chart.line().position("epsilon*AWDP").color("#791E94");
       chart
         .point()
         .position("epsilon*Baseline+MRAG")
@@ -119,19 +128,19 @@ class LineChart extends Component {
         .size(8);
       chart
         .point()
-        .position("Baseline+RWDP")
+        .position("epsilon*Baseline+RWDP")
         .color("#F9CE00")
         .shape("circle")
         .size(7);
       chart
         .point()
-        .position("Baseline+STCM")
+        .position("epsilon*Baseline+STCM")
         .color("#C00000")
         .shape("diamond")
         .size(8);
       chart
         .point()
-        .position("Baseline+MRAG+RWDP+STCM")
+        .position("epsilon*AWDP")
         .color("#791E94")
         .shape("circle")
         .size(7);
@@ -148,7 +157,7 @@ class LineChart extends Component {
       arr.push(i["Baseline (DP-Star)"]);
       arr.push(i["Baseline+RWDP"]);
       arr.push(i["Baseline+STCM"]);
-      arr.push(i["Baseline+MRAG+RWDP+STCM"]);
+      arr.push(i["AWDP"]);
     }
     this.maxs.push(arr.sort((a, b) => a - b)[arr.length - 1]);
     this.mins.push(arr.sort((a, b) => a - b)[0]);
@@ -158,7 +167,7 @@ class LineChart extends Component {
       arr.push(i["Baseline (DP-Star)"]);
       arr.push(i["Baseline+RWDP"]);
       arr.push(i["Baseline+STCM"]);
-      arr.push(i["Baseline+MRAG+RWDP+STCM"]);
+      arr.push(i["AWDP"]);
     }
     this.maxs.push(arr.sort((a, b) => a - b)[arr.length - 1]);
     this.mins.push(arr.sort((a, b) => a - b)[0]);
@@ -168,7 +177,7 @@ class LineChart extends Component {
       arr.push(i["Baseline (DP-Star)"]);
       arr.push(i["Baseline+RWDP"]);
       arr.push(i["Baseline+STCM"]);
-      arr.push(i["Baseline+MRAG+RWDP+STCM"]);
+      arr.push(i["AWDP"]);
     }
     this.maxs.push(arr.sort((a, b) => a - b)[arr.length - 1]);
     this.mins.push(arr.sort((a, b) => a - b)[0]);
@@ -178,7 +187,7 @@ class LineChart extends Component {
       arr.push(i["Baseline (DP-Star)"]);
       arr.push(i["Baseline+RWDP"]);
       arr.push(i["Baseline+STCM"]);
-      arr.push(i["Baseline+MRAG+RWDP+STCM"]);
+      arr.push(i["AWDP"]);
     }
     this.maxs.push(arr.sort((a, b) => a - b)[arr.length - 1]);
     this.mins.push(arr.sort((a, b) => a - b)[0]);
@@ -188,7 +197,7 @@ class LineChart extends Component {
       arr.push(i["Baseline (DP-Star)"]);
       arr.push(i["Baseline+RWDP"]);
       arr.push(i["Baseline+STCM"]);
-      arr.push(i["Baseline+MRAG+RWDP+STCM"]);
+      arr.push(i["AWDP"]);
     }
     this.maxs.push(arr.sort((a, b) => a - b)[arr.length - 1]);
     this.mins.push(arr.sort((a, b) => a - b)[0]);

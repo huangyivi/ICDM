@@ -1,178 +1,178 @@
 const RE = [
-    {
-        "epsilon" : 0.1,
-        "Baseline (DP-Star)" : 0.0017,
-        "Baseline+MRAG" : 0.1363,
-        "Baseline+RWDP" : 0.123,
-        "Baseline+STCM" : 0.123,
-        "Baseline+MRAG+RWDP+STCM" : 0.123
-    },
-    {
-        "epsilon" : 0.5,
-        "Baseline (DP-Star)" : 0.0017,
-        "Baseline+MRAG" : 0.1363,
-        "Baseline+RWDP" : 0.123,
-        "Baseline+STCM" : 0.123,
-        "Baseline+MRAG+RWDP+STCM" : 0.123
-    },
-    {
-        "epsilon" : 1.0,
-        "Baseline (DP-Star)" : 0.0017,
-        "Baseline+MRAG" : 0.1363,
-        "Baseline+RWDP" : 0.123,
-        "Baseline+STCM" : 0.123,
-        "Baseline+MRAG+RWDP+STCM" : 0.123
-    },
-    {
-        "epsilon" : 2.0,
-        "Baseline (DP-Star)" : 0.0017,
-        "Baseline+MRAG" : 0.1363,
-        "Baseline+RWDP" : 0.123,
-        "Baseline+STCM" : 0.123,
-        "Baseline+MRAG+RWDP+STCM" : 0.123
-    }
-]
+  {
+    epsilon: 0.1,
+    "Baseline (DP-Star)": 0.1363,
+    "Baseline+MRAG": 0.0479,
+    "Baseline+RWDP": 0.0233,
+    "Baseline+STCM": 0.0386,
+    "AWDP": 0.0017,
+  },
+  {
+    epsilon: 0.5,
+    "Baseline (DP-Star)": 0.0294,
+    "Baseline+MRAG": 0.0168,
+    "Baseline+RWDP": 0.0103,
+    "Baseline+STCM": 0.0215,
+    "AWDP": 0.0016,
+  },
+  {
+    epsilon: 1.0,
+    "Baseline (DP-Star)": 0.0212,
+    "Baseline+MRAG": 0.0135,
+    "Baseline+RWDP": 0.0101,
+    "Baseline+STCM": 0.0193,
+    "AWDP": 0.0011,
+  },
+  {
+    epsilon: 2.0,
+    "Baseline (DP-Star)": 0.0219,
+    "Baseline+MRAG": 0.0117,
+    "Baseline+RWDP": 0.0096,
+    "Baseline+STCM": 0.0146,
+    "AWDP": 0.0029,
+  },
+];
 const FP = [
-    {
-        "epsilon" : 0.1,
-        "Baseline (DP-Star)" : 0.0017,
-        "Baseline+MRAG" : 0.1363,
-        "Baseline+RWDP" : 0.123,
-        "Baseline+STCM" : 0.123,
-        "Baseline+MRAG+RWDP+STCM" : 0.123
-    },
-    {
-        "epsilon" : 0.5,
-        "Baseline (DP-Star)" : 0.0017,
-        "Baseline+MRAG" : 0.1363,
-        "Baseline+RWDP" : 0.123,
-        "Baseline+STCM" : 0.123,
-        "Baseline+MRAG+RWDP+STCM" : 0.123
-    },
-    {
-        "epsilon" : 1.0,
-        "Baseline (DP-Star)" : 0.0017,
-        "Baseline+MRAG" : 0.1363,
-        "Baseline+RWDP" : 0.123,
-        "Baseline+STCM" : 0.123,
-        "Baseline+MRAG+RWDP+STCM" : 0.123
-    },
-    {
-        "epsilon" : 2.0,
-        "Baseline (DP-Star)" : 0.0017,
-        "Baseline+MRAG" : 0.1363,
-        "Baseline+RWDP" : 0.123,
-        "Baseline+STCM" : 0.123,
-        "Baseline+MRAG+RWDP+STCM" : 0.123
-    }
-]
+  {
+    epsilon: 0.1,
+    "Baseline (DP-Star)": 0.532,
+    "Baseline+MRAG": 0.4213,
+    "Baseline+RWDP": 0.2907,
+    "Baseline+STCM": 0.4426,
+    "AWDP": 0.111,
+  },
+  {
+    epsilon: 0.5,
+    "Baseline (DP-Star)": 0.549,
+    "Baseline+MRAG": 0.3771,
+    "Baseline+RWDP": 0.2386,
+    "Baseline+STCM": 0.4287,
+    "AWDP": 0.148,
+  },
+  {
+    epsilon: 1.0,
+    "Baseline (DP-Star)": 0.625,
+    "Baseline+MRAG": 0.4425,
+    "Baseline+RWDP": 0.3071,
+    "Baseline+STCM": 0.4551,
+    "AWDP": 0.162,
+  },
+  {
+    epsilon: 2.0,
+    "Baseline (DP-Star)": 0.588,
+    "Baseline+MRAG": 0.4182,
+    "Baseline+RWDP": 0.2295,
+    "Baseline+STCM": 0.4198,
+    "AWDP": 0.147,
+  },
+];
 const KT = [
-    {
-        "epsilon" : 0.1,
-        "Baseline (DP-Star)" : 0.0017,
-        "Baseline+MRAG" : 0.1363,
-        "Baseline+RWDP" : 0.123,
-        "Baseline+STCM" : 0.123,
-        "Baseline+MRAG+RWDP+STCM" : 0.123
-    },
-    {
-        "epsilon" : 0.5,
-        "Baseline (DP-Star)" : 0.0017,
-        "Baseline+MRAG" : 0.1363,
-        "Baseline+RWDP" : 0.123,
-        "Baseline+STCM" : 0.123,
-        "Baseline+MRAG+RWDP+STCM" : 0.123
-    },
-    {
-        "epsilon" : 1.0,
-        "Baseline (DP-Star)" : 0.0017,
-        "Baseline+MRAG" : 0.1363,
-        "Baseline+RWDP" : 0.123,
-        "Baseline+STCM" : 0.123,
-        "Baseline+MRAG+RWDP+STCM" : 0.123
-    },
-    {
-        "epsilon" : 2.0,
-        "Baseline (DP-Star)" : 0.0017,
-        "Baseline+MRAG" : 0.1363,
-        "Baseline+RWDP" : 0.123,
-        "Baseline+STCM" : 0.123,
-        "Baseline+MRAG+RWDP+STCM" : 0.123
-    }
-]
+  {
+    epsilon: 0.1,
+    "Baseline (DP-Star)": -0.123,
+    "Baseline+MRAG": 0.0257,
+    "Baseline+RWDP": 0.0421,
+    "Baseline+STCM": 0.0244,
+    "AWDP": 0.065,
+  },
+  {
+    epsilon: 0.5,
+    "Baseline (DP-Star)": 0.068,
+    "Baseline+MRAG": 0.0691,
+    "Baseline+RWDP": 0.0713,
+    "Baseline+STCM": 0.0682,
+    "AWDP": 0.068,
+  },
+  {
+    epsilon: 1.0,
+    "Baseline (DP-Star)": 0.013,
+    "Baseline+MRAG": 0.0311,
+    "Baseline+RWDP": 0.0426,
+    "Baseline+STCM": 0.0304,
+    "AWDP": 0.067,
+  },
+  {
+    epsilon: 2.0,
+    "Baseline (DP-Star)": 0.015,
+    "Baseline+MRAG": 0.0401,
+    "Baseline+RWDP": 0.0667,
+    "Baseline+STCM": 0.0397,
+    "AWDP": 0.073,
+  },
+];
 const TE = [
-    {
-        "epsilon" : 0.1,
-        "Baseline (DP-Star)" : 0.0017,
-        "Baseline+MRAG" : 0.1363,
-        "Baseline+RWDP" : 0.123,
-        "Baseline+STCM" : 0.123,
-        "Baseline+MRAG+RWDP+STCM" : 0.123
-    },
-    {
-        "epsilon" : 0.5,
-        "Baseline (DP-Star)" : 0.0017,
-        "Baseline+MRAG" : 0.1363,
-        "Baseline+RWDP" : 0.123,
-        "Baseline+STCM" : 0.123,
-        "Baseline+MRAG+RWDP+STCM" : 0.123
-    },
-    {
-        "epsilon" : 1.0,
-        "Baseline (DP-Star)" : 0.0017,
-        "Baseline+MRAG" : 0.1363,
-        "Baseline+RWDP" : 0.123,
-        "Baseline+STCM" : 0.123,
-        "Baseline+MRAG+RWDP+STCM" : 0.123
-    },
-    {
-        "epsilon" : 2.0,
-        "Baseline (DP-Star)" : 0.0017,
-        "Baseline+MRAG" : 0.1363,
-        "Baseline+RWDP" : 0.123,
-        "Baseline+STCM" : 0.123,
-        "Baseline+MRAG+RWDP+STCM" : 0.123
-    }
-]
+  {
+    epsilon: 0.1,
+    "Baseline (DP-Star)": 0.0144,
+    "Baseline+MRAG": 0.0133,
+    "Baseline+RWDP": 0.0116,
+    "Baseline+STCM": 0.0137,
+    "AWDP": 0.011,
+  },
+  {
+    epsilon: 0.5,
+    "Baseline (DP-Star)": 0.0217,
+    "Baseline+MRAG": 0.0211,
+    "Baseline+RWDP": 0.0204,
+    "Baseline+STCM": 0.0216,
+    "AWDP": 0.02,
+  },
+  {
+    epsilon: 1.0,
+    "Baseline (DP-Star)": 0.0248,
+    "Baseline+MRAG": 0.0241,
+    "Baseline+RWDP": 0.0235,
+    "Baseline+STCM": 0.0246,
+    "AWDP": 0.023,
+  },
+  {
+    epsilon: 2.0,
+    "Baseline (DP-Star)": 0.0259,
+    "Baseline+MRAG": 0.0244,
+    "Baseline+RWDP": 0.0236,
+    "Baseline+STCM": 0.025,
+    "AWDP": 0.022,
+  },
+];
 const DE = [
-    {
-        "epsilon" : 0.1,
-        "Baseline (DP-Star)" : 0.0017,
-        "Baseline+MRAG" : 0.1363,
-        "Baseline+RWDP" : 0.123,
-        "Baseline+STCM" : 0.123,
-        "Baseline+MRAG+RWDP+STCM" : 0.123
-    },
-    {
-        "epsilon" : 0.5,
-        "Baseline (DP-Star)" : 0.0017,
-        "Baseline+MRAG" : 0.1363,
-        "Baseline+RWDP" : 0.123,
-        "Baseline+STCM" : 0.123,
-        "Baseline+MRAG+RWDP+STCM" : 0.123
-    },
-    {
-        "epsilon" : 1.0,
-        "Baseline (DP-Star)" : 0.0017,
-        "Baseline+MRAG" : 0.1363,
-        "Baseline+RWDP" : 0.123,
-        "Baseline+STCM" : 0.123,
-        "Baseline+MRAG+RWDP+STCM" : 0.123
-    },
-    {
-        "epsilon" : 2.0,
-        "Baseline (DP-Star)" : 0.0017,
-        "Baseline+MRAG" : 0.1363,
-        "Baseline+RWDP" : 0.123,
-        "Baseline+STCM" : 0.123,
-        "Baseline+MRAG+RWDP+STCM" : 0.123
-    }
-]
+  {
+    epsilon: 0.1,
+    "Baseline (DP-Star)": 0.3057,
+    "Baseline+MRAG": 0.0828,
+    "Baseline+RWDP": 0.0464,
+    "Baseline+STCM": 0.0851,
+    "AWDP": 0.0147,
+  },
+  {
+    epsilon: 0.5,
+    "Baseline (DP-Star)": 0.146,
+    "Baseline+MRAG": 0.0626,
+    "Baseline+RWDP": 0.0395,
+    "Baseline+STCM": 0.0673,
+    "AWDP": 0.0156,
+  },
+  {
+    epsilon: 1.0,
+    "Baseline (DP-Star)": 0.0743,
+    "Baseline+MRAG": 0.0546,
+    "Baseline+RWDP": 0.0351,
+    "Baseline+STCM": 0.0605,
+    "AWDP": 0.0264,
+  },
+  {
+    epsilon: 2.0,
+    "Baseline (DP-Star)": 0.058,
+    "Baseline+MRAG": 0.0382,
+    "Baseline+RWDP": 0.0304,
+    "Baseline+STCM": 0.0399,
+    "AWDP": 0.0189,
+  },
+];
 
 export default {
-    RE,
-    FP,
-    KT,
-    TE,
-    DE
-}
+  RE,
+  FP,
+  KT,
+  TE,
+  DE,
+};
